@@ -33,7 +33,7 @@ h2 { margin-top: 40px; }
 .polaroid {
   position: absolute;
   width: 100%;
-  background: white;
+  background: #E0F7FA; /* zachte blauwe achtergrond */
   padding: 10px 10px 40px 10px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -260,7 +260,7 @@ function drawConfetti(){
     confettiCtx.lineTo(p.x+p.tilt,p.y+p.r);
     confettiCtx.lineTo(p.x+p.tilt-p.r/2,p.y);
     confettiCtx.fillStyle=p.color;
-    p.fill();
+    confettiCtx.fill();
     p.y+=p.d;
     if(p.y>confettiCanvas.height)p.y=-10;
   });
