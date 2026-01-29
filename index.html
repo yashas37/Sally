@@ -33,11 +33,11 @@ h2 { margin-top: 40px; }
 .polaroid {
   position: absolute;
   width: 100%;
-  background: #E0F7FA; /* zachte blauwe achtergrond */
+  background: #E0F7FA;
   padding: 10px 10px 40px 10px;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .polaroid img {
@@ -50,10 +50,10 @@ h2 { margin-top: 40px; }
 /* HARTJES GRID */
 #hartjes-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 3px; /* dichterbij */
-  justify-items: center;
-  margin: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(40px, auto));
+  gap: 5px; /* dichterbij horizontaal */
+  justify-content: center;
+  margin: 20px 0;
 }
 
 .hart {
@@ -194,7 +194,7 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-// POLAROID SWIPE
+// POLAROID SWIPE (blijven bestaan)
 const cards = document.querySelectorAll('.polaroid');
 let startX = 0;
 
@@ -213,9 +213,8 @@ cards.forEach(card => {
 });
 
 function swipeCard(card, direction){
-  card.style.transform = `translateX(${direction*400}px) rotate(${direction*20}deg)`;
-  card.style.opacity = 0;
-  setTimeout(() => { card.style.display = "none"; }, 300);
+  // alleen visueel verplaatsen, geen verdwijnen
+  card.style.transform = `translateX(${direction*50}px) rotate(${direction*5}deg)`;
 }
 
 // HARTJES POPUP + CONFETTI HARTJES
