@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voor mijn liefste ❤️</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#6EE7B7, #3B82F6); /* groen naar blauw */
+  text-align: center;
+}
+header {
+  background: #2563EB;
+  color: white;
+  padding: 20px;
+}
+h2 { margin-top: 40px; }
+.polaroid-container {
+  position: relative;
+  width: 260px;
+  height: 330px;
+  margin: 30px auto;
+}
+.polaroid {
+  position: absolute;
+  width: 100%;
+  background: white;
+  padding: 10px 10px 40px 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.polaroid img { width: 100%; border-radius: 5px; }
+.caption { margin-top: 8px; font-size: 14px; }
+#hartjes { display: flex; flex-wrap: wrap; justify-content: center; margin: 20px; }
+.hart { font-size: 32px; margin: 10px; cursor: pointer; transition: transform 0.2s; }
+.hart:hover { transform: scale(1.3); }
+#liefdeTekst {
+  background: white;
+  margin: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  min-height: 60px;
+}
+#speciale {
+  display: none;
+  background: #2563EB;
+  color: white;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+#geheim {
+  display: none;
+  background: white;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+input { padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px; }
+button { background: #2563EB; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 16px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+<h1>Voor mijn liefste <span id="naam">[NAAM]</span> ❤️</h1>
+<p>Speciaal voor jou</p>
+</header>
+
+<h2>Onze herinneringen 📸</h2>
+<div class="polaroid-container">
+  <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
+  <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
+  <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
+</div>
+<p>Swipe links of rechts 👉</p>
+
+<h2>Druk op de hartjes ❤️</h2>
+<div id="hartjes"></div>
+<p id="liefdeTekst">Klik op een hartje…</p>
+<div id="speciale">En daarom hou ik voor altijd van jou ❤️ Jij bent mijn alles.</div>
+
+<h2>Onze playlist 🎵</h2>
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/playlist/PLAK_HIER_JE_PLAYLIST_ID"
+width="100%" height="380" frameborder="0"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<h2>Geheime pagina 🔐</h2>
+<input type="text" id="code" placeholder="Typ het geheime woord"><br>
+<button onclick="checkCode()">Ontgrendel</button>
+<div id="geheim">
+<h3>Alleen voor jou ❤️</h3>
+<p>Hier komt jouw geheime boodschap… Bijv: “Ik wil nog 1000 avonturen met jou beleven.”</p>
+</div>
+
+<script>
+/* SWIPE */
+const cards = document.querySelectorAll('.polaroid');
+let startX = 0;
+cards.forEach(card => {
+  card.style.zIndex = cards.length - Array.from(cards).indexOf(card);
+  card.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  card.addEventListener('touchend', e => {
+    let diff = e.changedTouches[0].clientX - startX;
+    if(Math.abs(diff) > 50) swipeCard(card, diff > 0 ? 1 : -1);
+  });
+  card.addEventListener('mousedown', e => startX = e.clientX);
+  card.addEventListener('mouseup', e => {
+    let diff = e.clientX - startX;
+    if(Math.abs(diff) > 50) swipeCard(card, diff > 0 ? 1 : -1);
+  });
+});
+
+function swipeCard(card, direction){
+  card.style.transform = `translateX(${direction*400}px) rotate(${direction*20}deg)`;
+  card.style.opacity = 0;
+  setTimeout(() => { card.style.display = "none"; }, 300);
+}
+
+/* HARTJES */
+const teksten = [
+  "Ik hou van hoe jij altijd mijn dag beter maakt.",
+  "Ik hou van hoe jij lacht om mijn domme grapjes.",
+  "Ik hou van hoe veilig ik me bij jou voel.",
+  "Ik hou van hoe jij altijd aan me denkt.",
+  "Ik hou van hoe mooi je bent zonder moeite te doen.",
+  "Ik hou van hoe jij me motiveert om beter te zijn.",
+  "Ik hou van hoe lief jij bent voor iedereen.",
+  "Ik hou van hoe jij me begrijpt zonder dat ik alles hoef te zeggen.",
+  "Ik hou van hoe jij mijn favoriete persoon bent.",
+  "Ik hou van hoe jij zelfs mijn slechtste dagen beter maakt.",
+  "Ik hou van hoe jij altijd weet wat ik nodig heb.",
+  "Ik hou van hoe jij mijn thuis bent.",
+  "Ik hou van hoe jij me accepteert zoals ik ben.",
+  "Ik hou van hoe jij altijd eerlijk tegen me bent.",
+  "Ik hou van hoe jij mijn toekomst mooier maakt."
+];
+const container = document.getElementById("hartjes");
+const tekstVak = document.getElementById("liefdeTekst");
+const speciale = document.getElementById("speciale");
+let geklikt = 0;
+teksten.forEach(t => {
+  const hart = document.createElement("span");
+  hart.innerText = "❤️";
+  hart.className = "hart";
+  hart.onclick = () => {
+    tekstVak.innerText = t;
+    hart.style.opacity = 0.3;
+    hart.style.pointerEvents = "none";
+    geklikt++;
+    if(geklikt === teksten.length) speciale.style.display = "block";
+  };
+  container.appendChild(hart);
+});
+
+/* GEHEIM */
+const geheimWoord = "liefde";
+function checkCode(){
+  const invoer = document.getElementById("code").value.toLowerCase();
+  if(invoer === geheimWoord){
+    document.getElementById("geheim").style.display = "block";
+  } else {
+    alert("Fout woordje 😏");
+  }
+}
+</script>
+</body>
+</html>
