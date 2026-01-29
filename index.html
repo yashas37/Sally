@@ -70,15 +70,15 @@ h2 { margin-top: 40px; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  background: linear-gradient(135deg, #FFF1F3, #E0F7FA); /* zachte gradient */
+  background: linear-gradient(135deg, #FFF1F3, #E0F7FA);
   padding: 25px 30px;
-  border-radius: 25px; /* ronder */
+  border-radius: 25px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   z-index: 1000;
   text-align: center;
-  width: auto;       /* dynamische breedte */
-  max-width: 90%;    /* nooit te breed */
-  min-width: 250px;  /* minimaal */
+  width: auto;
+  max-width: 90%;
+  min-width: 250px;
   transition: transform 0.3s ease;
   word-wrap: break-word;
 }
@@ -208,7 +208,7 @@ function swipeCard(card, direction){
   setTimeout(() => { card.style.display = "none"; }, 300);
 }
 
-// HARTJES POPUP + CONFETTI
+// HARTJES POPUP + CONFETTI HARTJES
 const teksten = [
   "Ik hou van hoe jij altijd mijn dag beter maakt.",
   "Ik hou van hoe jij lacht om mijn domme grapjes.",
@@ -235,6 +235,8 @@ const confettiCanvas = document.getElementById('confetti-canvas');
 const confettiCtx = confettiCanvas.getContext('2d');
 
 let confettiParticles = [];
+let confettiAnimationId = null;
+
 function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
@@ -245,26 +247,43 @@ function createConfetti() {
     confettiParticles.push({
       x: Math.random()*confettiCanvas.width,
       y: Math.random()*confettiCanvas.height - confettiCanvas.height,
-      r: Math.random()*6+2,
-      d: Math.random()*10+5,
-      color:`hsl(${Math.random()*360},100%,50%)`,
-      tilt: Math.random()*10-10
+      size: Math.random()*8+4,
+      color: `hsl(${Math.random()*360}, 100%, 50%)`,
+      tilt: Math.random()*10-10,
+      speed: Math.random()*2+1
     });
   }
 }
-function drawConfetti(){
+
+function drawConfetti() {
   confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
   confettiParticles.forEach(p=>{
-    confettiCtx.beginPath();
-    confettiCtx.moveTo(p.x+p.tilt+p.r/2,p.y);
-    confettiCtx.lineTo(p.x+p.tilt,p.y+p.r);
-    confettiCtx.lineTo(p.x+p.tilt-p.r/2,p.y);
-    confettiCtx.fillStyle=p.color;
-    confettiCtx.fill();
-    p.y+=p.d;
-    if(p.y>confettiCanvas.height)p.y=-10;
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.tilt * Math.PI / 180);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.font = `${p.size}px Arial`;
+    confettiCtx.fillText('❤️', 0, 0);
+    confettiCtx.restore();
+    p.y += p.speed;
+    if(p.y > confettiCanvas.height) p.y = -10;
   });
-  requestAnimationFrame(drawConfetti);
+  confettiAnimationId = requestAnimationFrame(drawConfetti);
+}
+
+function showHeartPopup(text) {
+  popupTekst.innerText = text;
+  popup.classList.add('show');
+
+  createConfetti();
+  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+  drawConfetti();
+
+  setTimeout(()=>{
+    popup.classList.remove('show');
+    if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+    confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  }, 1500);
 }
 
 // Maak hartjes
@@ -272,23 +291,14 @@ teksten.forEach((t,i)=>{
   const hart = document.createElement('span');
   hart.className = 'hart';
   hart.innerText='❤️';
-  hart.onclick=()=>{
-    popupTekst.innerText = t;
-    popup.classList.add('show');
-
-    // Confetti 1,5 seconde
-    createConfetti();
-    drawConfetti();
-    setTimeout(()=>{
-      confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-    }, 1500);
-  };
+  hart.onclick=()=> showHeartPopup(t);
   hartjesContainer.appendChild(hart);
 });
 
 // Sluit popup
 popupClose.onclick=()=>{
   popup.classList.remove('show');
+  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
   confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
 }
 
