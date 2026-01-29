@@ -70,15 +70,17 @@ h2 { margin-top: 40px; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  background: white;
-  padding: 20px 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #FFF1F3, #E0F7FA); /* zachte gradient */
+  padding: 25px 30px;
+  border-radius: 25px; /* ronder */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   z-index: 1000;
   text-align: center;
-  width: 80%;
-  max-width: 400px;
+  width: auto;       /* dynamische breedte */
+  max-width: 90%;    /* nooit te breed */
+  min-width: 250px;  /* minimaal */
   transition: transform 0.3s ease;
+  word-wrap: break-word;
 }
 
 #popup.show { transform: translate(-50%, -50%) scale(1); }
@@ -100,16 +102,6 @@ h2 { margin-top: 40px; }
   height: 100%;
   pointer-events: none;
   z-index: 999;
-}
-
-/* TEKSTVAK */
-#liefdeTekst {
-  margin: 20px;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  min-height: 60px;
-  transition: background 0.3s;
 }
 
 /* EXTRA */
@@ -153,19 +145,19 @@ button {
 <body>
 
 <header>
-<h1>Voor de aller aller leukste ter wereld  <span id="naam">SALLY</span> ❤️</h1>
+<h1>Voor mijn liefste <span id="naam">[NAAM]</span> ❤️</h1>
 <p>Speciaal voor jou</p>
 </header>
 
 <h2>Onze herinneringen 📸</h2>
 <div class="polaroid-container">
-  <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste foto samen 💕</div></div>
+  <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
   <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
   <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
 </div>
 <p>Swipe links of rechts 👉</p>
 
-<h2>Druk op de hartjes ❤️</h2>
+<h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
 
 <div id="popup" class="hidden">
@@ -174,7 +166,6 @@ button {
 </div>
 <canvas id="confetti-canvas"></canvas>
 
-<p id="liefdeTekst">Klik op een hartje…</p>
 <div id="speciale">En daarom hou ik voor altijd van jou ❤️ Jij bent mijn alles.</div>
 
 <h2>Onze playlist 🎵</h2>
@@ -185,6 +176,7 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 
 <h2>Geheime pagina 🔐</h2>
 <input type="text" id="code" placeholder="Typ het geheime woord"><br>
+<small>Tip: het woord heeft alles met ons te maken ❤️</small><br>
 <button onclick="checkCode()">Ontgrendel</button>
 <div id="geheim">
 <h3>Alleen voor jou ❤️</h3>
@@ -268,7 +260,7 @@ function drawConfetti(){
     confettiCtx.lineTo(p.x+p.tilt,p.y+p.r);
     confettiCtx.lineTo(p.x+p.tilt-p.r/2,p.y);
     confettiCtx.fillStyle=p.color;
-    confettiCtx.fill();
+    p.fill();
     p.y+=p.d;
     if(p.y>confettiCanvas.height)p.y=-10;
   });
@@ -283,8 +275,13 @@ teksten.forEach((t,i)=>{
   hart.onclick=()=>{
     popupTekst.innerText = t;
     popup.classList.add('show');
+
+    // Confetti 1,5 seconde
     createConfetti();
     drawConfetti();
+    setTimeout(()=>{
+      confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+    }, 1500);
   };
   hartjesContainer.appendChild(hart);
 });
