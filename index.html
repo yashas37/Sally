@@ -13,19 +13,20 @@ body {
 header {background:#2563EB;color:white;padding:20px;}
 h2 {margin-top:40px;}
 
-/* POLAROIDS CAROUSEL */
-.polaroid-container {
-  position:relative; width:260px; height:330px; margin:30px auto;
-  touch-action: pan-y; /* voorkom horizontaal scrollen van de pagina */
-  overflow: visible;
+/* CAROUSEL */
+.carousel-container {
+  width: 90%; max-width: 320px; margin: 30px auto;
+  overflow: hidden; position: relative;
+}
+.carousel-track {
+  display: flex; transition: transform 0.4s ease;
 }
 .polaroid {
-  position:absolute; width:100%; height:100%; background:#E0F7FA;
+  flex: 0 0 100%; margin: 0 5px; background:#D0F0FF;
   padding:10px 10px 40px 10px; border-radius:10px;
   box-shadow:0 8px 20px rgba(0,0,0,0.2);
   display:flex; flex-direction:column; align-items:center;
-  justify-content:center; transition:transform 0.3s ease, opacity 0.3s ease;
-  cursor: grab;
+  justify-content:center;
 }
 .polaroid img {width:100%; border-radius:5px;}
 .caption {margin-top:8px;font-size:14px;}
@@ -62,12 +63,14 @@ button {background:#2563EB;color:white;border:none;padding:10px 20px;border-radi
 </header>
 
 <h2>Onze herinneringen 📸</h2>
-<div class="polaroid-container" id="polaroid-stack">
-  <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
-  <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
-  <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
+<div class="carousel-container">
+  <div class="carousel-track" id="carousel">
+    <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
+    <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
+    <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
+  </div>
 </div>
-<p>Swipe links/rechts of gebruik pijltjestoetsen 👉</p>
+<p>Swipe of gebruik pijltjestoetsen 👉</p>
 
 <h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
@@ -94,46 +97,33 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-// POLAROID CAROUSEL MET HORIZONTAAL SWIPE ZONDER PAGINA MOVE
-const stack = document.getElementById('polaroid-stack');
-let cards = Array.from(stack.querySelectorAll('.polaroid'));
-let current = 0;
+// CAROUSEL
+const carousel = document.getElementById('carousel');
+const total = carousel.children.length;
+let currentIndex = 0;
 
-function showCard(index){
-  cards.forEach((card,i)=>{
-    card.style.zIndex = cards.length-i;
-    if(i<index) card.style.transform='translateX(-150px) scale(0.8) rotate(-10deg)';
-    else if(i>index) card.style.transform='translateX(150px) scale(0.8) rotate(10deg)';
-    else card.style.transform='translateX(0px) scale(1) rotate(0deg)';
-    card.style.opacity=(i===index?1:0.9);
-  });
+function updateCarousel(){
+  const offset = -currentIndex * 100;
+  carousel.style.transform = `translateX(${offset}%)`;
 }
-showCard(current);
 
-function swipeLeft(){ current = (current+1)%cards.length; showCard(current);}
-function swipeRight(){ current = (current-1+cards.length)%cards.length; showCard(current);}
+function nextPhoto(){currentIndex = (currentIndex+1)%total; updateCarousel();}
+function prevPhoto(){currentIndex = (currentIndex-1+total)%total; updateCarousel();}
 
-// Touch / Mouse
+// Touch support
 let startX=0, isDragging=false;
-stack.addEventListener('touchstart', e=>{startX=e.touches[0].clientX; isDragging=true;});
-stack.addEventListener('mousedown', e=>{startX=e.clientX; isDragging=true;});
-stack.addEventListener('touchend', e=>{
+carousel.addEventListener('touchstart',e=>{startX=e.touches[0].clientX; isDragging=true;});
+carousel.addEventListener('touchend',e=>{
   if(!isDragging) return;
-  let dx=e.changedTouches[0].clientX-startX; 
-  if(dx<-30) swipeLeft(); else if(dx>30) swipeRight(); 
-  isDragging=false;
-});
-stack.addEventListener('mouseup', e=>{
-  if(!isDragging) return;
-  let dx=e.clientX-startX; 
-  if(dx<-30) swipeLeft(); else if(dx>30) swipeRight(); 
+  let dx=e.changedTouches[0].clientX - startX;
+  if(dx<-30) nextPhoto(); else if(dx>30) prevPhoto();
   isDragging=false;
 });
 
-// Pijltjestoetsen
-document.addEventListener('keydown', e=>{
-  if(e.key==='ArrowLeft') swipeRight();
-  if(e.key==='ArrowRight') swipeLeft();
+// Keyboard arrows
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft') prevPhoto();
+  if(e.key==='ArrowRight') nextPhoto();
 });
 
 // HARTJES POPUP + CONFETTI
@@ -186,6 +176,5 @@ function checkCode(){const invoer=document.getElementById("code").value.toLowerC
 // QR Code
 new QRCode(document.getElementById("qrcode"),{text:"https://yashas37.github.io/valentijn/",width:128,height:128,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
 </script>
-
 </body>
 </html>
