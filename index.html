@@ -51,7 +51,7 @@ h2 { margin-top: 40px; }
 #hartjes-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
+  gap: 5px; /* dichterbij */
   justify-items: center;
   margin: 20px;
 }
@@ -140,6 +140,11 @@ button {
   font-size: 16px; 
   margin-top: 10px; 
 }
+
+/* QR Code */
+#qrcode {
+  margin: 20px auto;
+}
 </style>
 </head>
 <body>
@@ -182,6 +187,11 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <h3>Alleen voor jou ❤️</h3>
 <p>Hier komt jouw geheime boodschap…</p>
 </div>
+
+<h2>QR Code van de site 📱</h2>
+<div id="qrcode"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
 // POLAROID SWIPE
@@ -287,12 +297,15 @@ popupClose.onclick = () => {
   confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
 }
 
-// Maak hartjes
+// Regenbooghartjes
+const kleuren = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8B00FF"];
+
 teksten.forEach((t,i)=>{
   const hart = document.createElement('span');
   hart.className = 'hart';
-  hart.innerText='❤️';
-  hart.onclick=()=> showHeartPopup(t);
+  hart.innerText = '❤️';
+  hart.style.color = kleuren[i % kleuren.length];
+  hart.onclick = () => showHeartPopup(t);
   hartjesContainer.appendChild(hart);
 });
 
@@ -304,6 +317,16 @@ function checkCode(){
     document.getElementById("geheim").style.display="block";
   } else { alert("Fout woordje 😏"); }
 }
+
+// QR Code
+new QRCode(document.getElementById("qrcode"), {
+    text: "https://yashas37.github.io/valentijn/",
+    width: 128,
+    height: 128,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+});
 </script>
 
 </body>
