@@ -38,6 +38,7 @@ h2 { margin-top: 40px; }
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   transition: transform 0.3s ease;
+  touch-action: pan-y;
 }
 
 .polaroid img {
@@ -194,31 +195,43 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
-// POLAROID SWIPE (blijven bestaan)
+// POLAROID SWIPE (mobiel + desktop)
 const container = document.querySelector('.polaroid-container');
-const cards = document.querySelectorAll('.polaroid');
-let startX = 0;
+const cards = Array.from(document.querySelectorAll('.polaroid'));
 
 cards.forEach(card => {
-  card.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  card.addEventListener('mousedown', e => startX = e.clientX);
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
 
-  card.addEventListener('touchmove', e => {
-    let diff = e.touches[0].clientX - startX;
-    card.style.transform = `translateX(${diff}px) rotate(${diff/10}deg)`;
-  });
+  const handleStart = e => {
+    isDragging = true;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    card.style.transition = 'none';
+  };
 
-  card.addEventListener('mousemove', e => {
-    if (e.buttons === 1) { // mouse drag
-      let diff = e.clientX - startX;
-      card.style.transform = `translateX(${diff}px) rotate(${diff/10}deg)`;
-    }
-  });
+  const handleMove = e => {
+    if(!isDragging) return;
+    currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const dx = currentX - startX;
+    card.style.transform = `translateX(${dx}px) rotate(${dx/10}deg)`;
+  };
 
-  card.addEventListener('touchend', e => card.style.transform = `translateX(0px) rotate(0deg)`);
-  card.addEventListener('mouseup', e => card.style.transform = `translateX(0px) rotate(0deg)`);
+  const handleEnd = e => {
+    isDragging = false;
+    card.style.transition = 'transform 0.3s ease';
+    card.style.transform = `translateX(0px) rotate(0deg)`;
+  };
+
+  card.addEventListener('touchstart', handleStart);
+  card.addEventListener('mousedown', handleStart);
+  card.addEventListener('touchmove', handleMove);
+  card.addEventListener('mousemove', handleMove);
+  card.addEventListener('touchend', handleEnd);
+  card.addEventListener('mouseup', handleEnd);
+  card.addEventListener('mouseleave', handleEnd);
 });
-  
+
 // HARTJES POPUP + CONFETTI
 const teksten = [
   "Ik hou van hoe jij altijd mijn dag beter maakt.",
@@ -297,7 +310,7 @@ popupClose.onclick = () => {
   confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
 }
 
-// Regenbooghartjes
+// Regenbooghartjes gegarandeerd
 const kleuren = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8B00FF"];
 
 teksten.forEach((t,i)=>{
@@ -305,6 +318,7 @@ teksten.forEach((t,i)=>{
   hart.className = 'hart';
   hart.innerText = '❤️';
   hart.style.color = kleuren[i % kleuren.length];
+  hart.style.setProperty('color', kleuren[i % kleuren.length], 'important');
   hart.onclick = () => showHeartPopup(t);
   hartjesContainer.appendChild(hart);
 });
