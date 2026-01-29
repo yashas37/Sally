@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voor de aller aller leukste ter wereld ❤️</title>
+<title>Voor mijn liefste ❤️</title>
 
 <style>
 body {
@@ -13,6 +13,7 @@ body {
   text-align: center;
 }
 
+/* Header */
 header {
   background: #2563EB;
   color: white;
@@ -46,22 +47,60 @@ h2 { margin-top: 40px; }
 
 .caption { margin-top: 8px; font-size: 14px; }
 
-/* HARTJES */
-#hartjes { 
-  display: block; 
-  margin: 20px auto; 
-  width: max-content; 
+/* HARTJES GRID */
+#hartjes-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  justify-items: center;
+  margin: 20px;
 }
 
 .hart {
   font-size: 32px;
-  margin: 10px auto;
   cursor: pointer;
   transition: transform 0.2s;
-  display: block;
 }
 
 .hart:hover { transform: scale(1.3); }
+
+/* POPUP */
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  z-index: 1000;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
+}
+
+#popup.show { transform: translate(-50%, -50%) scale(1); }
+
+#popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Confetti canvas */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
 
 /* TEKSTVAK */
 #liefdeTekst {
@@ -111,11 +150,10 @@ button {
 }
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>Voor de aller aller leukste ter wereld <span id="naam">SALLY</span> ❤️</h1>
+<h1>Voor de aller aller leukste ter wereld  <span id="naam">SALLY</span> ❤️</h1>
 <p>Speciaal voor jou</p>
 </header>
 
@@ -128,12 +166,16 @@ button {
 <p>Swipe links of rechts 👉</p>
 
 <h2>Druk op de hartjes ❤️</h2>
-<div id="hartjes"></div>
-<p id="liefdeTekst">Klik op een hartje…</p>
+<div id="hartjes-container"></div>
 
-<div id="speciale">
-En daarom hou ik voor altijd van jou ❤️ Jij bent mijn alles.
+<div id="popup" class="hidden">
+  <span id="popup-close">✖</span>
+  <p id="popup-tekst"></p>
 </div>
+<canvas id="confetti-canvas"></canvas>
+
+<p id="liefdeTekst">Klik op een hartje…</p>
+<div id="speciale">En daarom hou ik voor altijd van jou ❤️ Jij bent mijn alles.</div>
 
 <h2>Onze playlist 🎵</h2>
 <iframe style="border-radius:12px"
@@ -144,26 +186,23 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <h2>Geheime pagina 🔐</h2>
 <input type="text" id="code" placeholder="Typ het geheime woord"><br>
 <button onclick="checkCode()">Ontgrendel</button>
-
 <div id="geheim">
 <h3>Alleen voor jou ❤️</h3>
 <p>Hier komt jouw geheime boodschap…</p>
 </div>
 
 <script>
-/* SWIPE */
+// POLAROID SWIPE
 const cards = document.querySelectorAll('.polaroid');
 let startX = 0;
 
 cards.forEach(card => {
   card.style.zIndex = cards.length - Array.from(cards).indexOf(card);
-
   card.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   card.addEventListener('touchend', e => {
     let diff = e.changedTouches[0].clientX - startX;
     if(Math.abs(diff) > 50) swipeCard(card, diff > 0 ? 1 : -1);
   });
-
   card.addEventListener('mousedown', e => startX = e.clientX);
   card.addEventListener('mouseup', e => {
     let diff = e.clientX - startX;
@@ -177,9 +216,9 @@ function swipeCard(card, direction){
   setTimeout(() => { card.style.display = "none"; }, 300);
 }
 
-/* HARTJES */
+// HARTJES POPUP + CONFETTI
 const teksten = [
-  "De manier waarop jij naar de wereld kijkt.",
+  "Ik hou van hoe jij altijd mijn dag beter maakt.",
   "Ik hou van hoe jij lacht om mijn domme grapjes.",
   "Ik hou van hoe veilig ik me bij jou voel.",
   "Ik hou van hoe jij altijd aan me denkt.",
@@ -189,51 +228,80 @@ const teksten = [
   "Ik hou van hoe jij me begrijpt zonder dat ik alles hoef te zeggen.",
   "Ik hou van hoe jij mijn favoriete persoon bent.",
   "Ik hou van hoe jij zelfs mijn slechtste dagen beter maakt.",
-  "Ik hou van hoe jij altijd weet wat ik nodig heb.",
+  "Ik hou van hoe jij altijd weet wat ik nodig hebt.",
   "Ik hou van hoe jij mijn thuis bent.",
   "Ik hou van hoe jij me accepteert zoals ik ben.",
   "Ik hou van hoe jij altijd eerlijk tegen me bent.",
   "Ik hou van hoe jij mijn toekomst mooier maakt."
 ];
 
-const kleuren = [
-  "#A7F3D0",
-  "#BFDBFE",
-  "#DDD6FE",
-  "#FEF3C7",
-  "#C7D2FE",
-  "#BBF7D0",
-  "#E0F2FE"
-];
+const hartjesContainer = document.getElementById('hartjes-container');
+const popup = document.getElementById('popup');
+const popupTekst = document.getElementById('popup-tekst');
+const popupClose = document.getElementById('popup-close');
+const confettiCanvas = document.getElementById('confetti-canvas');
+const confettiCtx = confettiCanvas.getContext('2d');
 
-const container = document.getElementById("hartjes");
-const tekstVak = document.getElementById("liefdeTekst");
-const speciale = document.getElementById("speciale");
-let geklikt = 0;
+let confettiParticles = [];
+function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-teksten.forEach(t => {
-  const hart = document.createElement("span");
-  hart.innerText = "❤️";
-  hart.className = "hart";
-  hart.onclick = () => {
-    tekstVak.innerText = t;
-    const randomKleur = kleuren[Math.floor(Math.random() * kleuren.length)];
-    tekstVak.style.background = randomKleur;
-    geklikt++;
-    if(geklikt === teksten.length) speciale.style.display = "block";
+function createConfetti() {
+  confettiParticles = [];
+  for (let i=0;i<100;i++){
+    confettiParticles.push({
+      x: Math.random()*confettiCanvas.width,
+      y: Math.random()*confettiCanvas.height - confettiCanvas.height,
+      r: Math.random()*6+2,
+      d: Math.random()*10+5,
+      color:`hsl(${Math.random()*360},100%,50%)`,
+      tilt: Math.random()*10-10
+    });
+  }
+}
+function drawConfetti(){
+  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  confettiParticles.forEach(p=>{
+    confettiCtx.beginPath();
+    confettiCtx.moveTo(p.x+p.tilt+p.r/2,p.y);
+    confettiCtx.lineTo(p.x+p.tilt,p.y+p.r);
+    confettiCtx.lineTo(p.x+p.tilt-p.r/2,p.y);
+    confettiCtx.fillStyle=p.color;
+    confettiCtx.fill();
+    p.y+=p.d;
+    if(p.y>confettiCanvas.height)p.y=-10;
+  });
+  requestAnimationFrame(drawConfetti);
+}
+
+// Maak hartjes
+teksten.forEach((t,i)=>{
+  const hart = document.createElement('span');
+  hart.className = 'hart';
+  hart.innerText='❤️';
+  hart.onclick=()=>{
+    popupTekst.innerText = t;
+    popup.classList.add('show');
+    createConfetti();
+    drawConfetti();
   };
-  container.appendChild(hart);
+  hartjesContainer.appendChild(hart);
 });
 
-/* GEHEIM */
-const geheimWoord = "valentijn";
+// Sluit popup
+popupClose.onclick=()=>{
+  popup.classList.remove('show');
+  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+}
+
+// GEHEIM
+const geheimWoord = "liefde";
 function checkCode(){
   const invoer = document.getElementById("code").value.toLowerCase();
-  if(invoer === geheimWoord){
-    document.getElementById("geheim").style.display = "block";
-  } else {
-    alert("Fout woordje 😏");
-  }
+  if(invoer===geheimWoord){
+    document.getElementById("geheim").style.display="block";
+  } else { alert("Fout woordje 😏"); }
 }
 </script>
 
