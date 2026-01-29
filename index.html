@@ -278,12 +278,13 @@ function showHeartPopup(text) {
   createConfetti();
   if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
   drawConfetti();
+}
 
-  setTimeout(()=>{
-    popup.classList.remove('show');
-    if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
-    confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-  }, 1500);
+// Sluit popup en stop confetti
+popupClose.onclick = () => {
+  popup.classList.remove('show');
+  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
 }
 
 // Maak hartjes
@@ -294,13 +295,6 @@ teksten.forEach((t,i)=>{
   hart.onclick=()=> showHeartPopup(t);
   hartjesContainer.appendChild(hart);
 });
-
-// Sluit popup
-popupClose.onclick=()=>{
-  popup.classList.remove('show');
-  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
-  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-}
 
 // GEHEIM
 const geheimWoord = "liefde";
