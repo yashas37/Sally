@@ -13,7 +13,6 @@ body {
   text-align: center;
 }
 
-/* Header */
 header {
   background: #2563EB;
   color: white;
@@ -28,6 +27,7 @@ h2 { margin-top: 40px; }
   width: 260px;
   height: 330px;
   margin: 30px auto;
+  overflow: hidden;
 }
 
 .polaroid {
@@ -51,7 +51,7 @@ h2 { margin-top: 40px; }
 #hartjes-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(40px, auto));
-  gap: 5px; /* dichterbij horizontaal */
+  gap: 5px;
   justify-content: center;
   margin: 20px 0;
 }
@@ -195,29 +195,31 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 
 <script>
 // POLAROID SWIPE (blijven bestaan)
+const container = document.querySelector('.polaroid-container');
 const cards = document.querySelectorAll('.polaroid');
 let startX = 0;
 
 cards.forEach(card => {
-  card.style.zIndex = cards.length - Array.from(cards).indexOf(card);
   card.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  card.addEventListener('touchend', e => {
-    let diff = e.changedTouches[0].clientX - startX;
-    if(Math.abs(diff) > 50) swipeCard(card, diff > 0 ? 1 : -1);
-  });
   card.addEventListener('mousedown', e => startX = e.clientX);
-  card.addEventListener('mouseup', e => {
-    let diff = e.clientX - startX;
-    if(Math.abs(diff) > 50) swipeCard(card, diff > 0 ? 1 : -1);
+
+  card.addEventListener('touchmove', e => {
+    let diff = e.touches[0].clientX - startX;
+    card.style.transform = `translateX(${diff}px) rotate(${diff/10}deg)`;
   });
+
+  card.addEventListener('mousemove', e => {
+    if (e.buttons === 1) { // mouse drag
+      let diff = e.clientX - startX;
+      card.style.transform = `translateX(${diff}px) rotate(${diff/10}deg)`;
+    }
+  });
+
+  card.addEventListener('touchend', e => card.style.transform = `translateX(0px) rotate(0deg)`);
+  card.addEventListener('mouseup', e => card.style.transform = `translateX(0px) rotate(0deg)`);
 });
-
-function swipeCard(card, direction){
-  // alleen visueel verplaatsen, geen verdwijnen
-  card.style.transform = `translateX(${direction*50}px) rotate(${direction*5}deg)`;
-}
-
-// HARTJES POPUP + CONFETTI HARTJES
+  
+// HARTJES POPUP + CONFETTI
 const teksten = [
   "Ik hou van hoe jij altijd mijn dag beter maakt.",
   "Ik hou van hoe jij lacht om mijn domme grapjes.",
@@ -289,7 +291,6 @@ function showHeartPopup(text) {
   drawConfetti();
 }
 
-// Sluit popup en stop confetti
 popupClose.onclick = () => {
   popup.classList.remove('show');
   if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
