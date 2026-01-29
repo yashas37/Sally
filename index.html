@@ -4,174 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Voor mijn liefste ❤️</title>
-
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(#6EE7B7, #3B82F6);
-  text-align: center;
+  margin:0; font-family:Arial,sans-serif; text-align:center;
+  background:linear-gradient(#6EE7B7,#3B82F6);
 }
-
-header {
-  background: #2563EB;
-  color: white;
-  padding: 20px;
-}
-
-h2 { margin-top: 40px; }
-
+header {background:#2563EB;color:white;padding:20px;}
+h2 {margin-top:40px;}
 /* POLAROIDS */
-.polaroid-container {
-  position: relative;
-  width: 260px;
-  height: 330px;
-  margin: 30px auto;
-  overflow: hidden;
-}
-
+.polaroid-container {position:relative;width:260px;height:330px;margin:30px auto;}
 .polaroid {
-  position: absolute;
-  width: 100%;
-  background: #E0F7FA;
-  padding: 10px 10px 40px 10px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-  touch-action: pan-y;
+  position:absolute;width:100%;background:#E0F7FA;
+  padding:10px 10px 40px 10px;border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  transition:transform 0.3s ease;
+  touch-action:none; user-select:none;
 }
+.polaroid img {width:100%;border-radius:5px;}
+.caption {margin-top:8px;font-size:14px;}
 
-.polaroid img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.caption { margin-top: 8px; font-size: 14px; }
-
-/* HARTJES GRID */
-#hartjes-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, auto));
-  gap: 5px;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.hart {
-  font-size: 32px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.hart:hover { transform: scale(1.3); }
+/* HARTJES */
+#hartjes-container {display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,auto));gap:5px;justify-content:center;margin:20px 0;}
+.hart {font-size:32px;cursor:pointer;transition:transform 0.2s;}
+.hart:hover {transform:scale(1.3);}
 
 /* POPUP */
 #popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  background: linear-gradient(135deg, #FFF1F3, #E0F7FA);
-  padding: 25px 30px;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  z-index: 1000;
-  text-align: center;
-  width: auto;
-  max-width: 90%;
-  min-width: 250px;
-  transition: transform 0.3s ease;
-  word-wrap: break-word;
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
+  background:linear-gradient(135deg,#FFF1F3,#E0F7FA);
+  padding:25px 30px;border-radius:25px;box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  z-index:1000;text-align:center;width:auto;max-width:90%;min-width:250px;
+  transition:transform 0.3s ease;word-wrap:break-word;
 }
-
-#popup.show { transform: translate(-50%, -50%) scale(1); }
-
-#popup-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-/* Confetti canvas */
-#confetti-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 999;
-}
-
-/* EXTRA */
-#speciale {
-  display: none;
-  background: #2563EB;
-  color: white;
-  margin: 30px;
-  padding: 20px;
-  border-radius: 20px;
-  font-size: 18px;
-}
-
-#geheim {
-  display: none;
-  background: white;
-  margin: 30px;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-input { 
-  padding: 10px; 
-  border-radius: 10px; 
-  border: 1px solid #ccc; 
-  font-size: 16px; 
-}
-
-button { 
-  background: #2563EB; 
-  color: white; 
-  border: none; 
-  padding: 10px 20px; 
-  border-radius: 20px; 
-  font-size: 16px; 
-  margin-top: 10px; 
-}
-
-/* QR Code */
-#qrcode {
-  margin: 20px auto;
-}
+#popup.show {transform:translate(-50%,-50%) scale(1);}
+#popup-close {position:absolute;top:10px;right:15px;cursor:pointer;font-size:20px;}
+#confetti-canvas {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+#speciale {display:none;background:#2563EB;color:white;margin:30px;padding:20px;border-radius:20px;font-size:18px;}
+#geheim {display:none;background:white;margin:30px;padding:20px;border-radius:20px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+input {padding:10px;border-radius:10px;border:1px solid #ccc;font-size:16px;}
+button {background:#2563EB;color:white;border:none;padding:10px 20px;border-radius:20px;font-size:16px;margin-top:10px;}
+#qrcode {margin:20px auto;}
 </style>
 </head>
 <body>
-
 <header>
 <h1>Voor mijn liefste <span id="naam">[NAAM]</span> ❤️</h1>
 <p>Speciaal voor jou</p>
 </header>
 
 <h2>Onze herinneringen 📸</h2>
-<div class="polaroid-container">
+<div class="polaroid-container" id="polaroid-stack">
   <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
   <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
   <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
 </div>
-<p>Swipe links of rechts 👉</p>
+<p>Swipe de polaroids 👉</p>
 
 <h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
 
-<div id="popup" class="hidden">
-  <span id="popup-close">✖</span>
-  <p id="popup-tekst"></p>
-</div>
+<div id="popup" class="hidden"><span id="popup-close">✖</span><p id="popup-tekst"></p></div>
 <canvas id="confetti-canvas"></canvas>
-
 <div id="speciale">En daarom hou ik voor altijd van jou ❤️ Jij bent mijn alles.</div>
 
 <h2>Onze playlist 🎵</h2>
@@ -184,53 +77,45 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <input type="text" id="code" placeholder="Typ het geheime woord"><br>
 <small>Tip: het woord heeft alles met ons te maken ❤️</small><br>
 <button onclick="checkCode()">Ontgrendel</button>
-<div id="geheim">
-<h3>Alleen voor jou ❤️</h3>
-<p>Hier komt jouw geheime boodschap…</p>
-</div>
+<div id="geheim"><h3>Alleen voor jou ❤️</h3><p>Hier komt jouw geheime boodschap…</p></div>
 
 <h2>QR Code van de site 📱</h2>
 <div id="qrcode"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
-// POLAROID SWIPE (mobiel + desktop)
-const container = document.querySelector('.polaroid-container');
-const cards = Array.from(document.querySelectorAll('.polaroid'));
+// POLAROID SWIPE STACK
+const stack = document.getElementById('polaroid-stack');
+let cards = Array.from(stack.querySelectorAll('.polaroid'));
 
-cards.forEach(card => {
-  let startX = 0;
-  let currentX = 0;
-  let isDragging = false;
-
-  const handleStart = e => {
-    isDragging = true;
-    startX = e.touches ? e.touches[0].clientX : e.clientX;
-    card.style.transition = 'none';
+function initCard(card){
+  let startX=0, currentX=0, isDragging=false;
+  const handleStart=e=>{
+    isDragging=true;
+    startX=e.touches?e.touches[0].clientX:e.clientX;
+    card.style.transition='none';
   };
-
-  const handleMove = e => {
+  const handleMove=e=>{
     if(!isDragging) return;
-    currentX = e.touches ? e.touches[0].clientX : e.clientX;
-    const dx = currentX - startX;
-    card.style.transform = `translateX(${dx}px) rotate(${dx/10}deg)`;
+    currentX=e.touches?e.touches[0].clientX:e.clientX;
+    let dx=currentX-startX;
+    card.style.transform=`translateX(${dx}px) rotate(${dx/10}deg)`;
   };
-
-  const handleEnd = e => {
-    isDragging = false;
-    card.style.transition = 'transform 0.3s ease';
-    card.style.transform = `translateX(0px) rotate(0deg)`;
+  const handleEnd=e=>{
+    isDragging=false;
+    let dx=currentX-startX;
+    card.style.transition='transform 0.3s ease';
+    card.style.transform=`translateX(0px) rotate(0deg)`;
   };
-
-  card.addEventListener('touchstart', handleStart);
-  card.addEventListener('mousedown', handleStart);
-  card.addEventListener('touchmove', handleMove);
-  card.addEventListener('mousemove', handleMove);
-  card.addEventListener('touchend', handleEnd);
-  card.addEventListener('mouseup', handleEnd);
-  card.addEventListener('mouseleave', handleEnd);
-});
+  card.addEventListener('touchstart',handleStart);
+  card.addEventListener('mousedown',handleStart);
+  card.addEventListener('touchmove',handleMove);
+  card.addEventListener('mousemove',handleMove);
+  card.addEventListener('touchend',handleEnd);
+  card.addEventListener('mouseup',handleEnd);
+  card.addEventListener('mouseleave',handleEnd);
+}
+cards.forEach(initCard);
 
 // HARTJES POPUP + CONFETTI
 const teksten = [
@@ -252,96 +137,33 @@ const teksten = [
 ];
 
 const hartjesContainer = document.getElementById('hartjes-container');
-const popup = document.getElementById('popup');
-const popupTekst = document.getElementById('popup-tekst');
-const popupClose = document.getElementById('popup-close');
-const confettiCanvas = document.getElementById('confetti-canvas');
-const confettiCtx = confettiCanvas.getContext('2d');
+const popup=document.getElementById('popup'); const popupTekst=document.getElementById('popup-tekst');
+const popupClose=document.getElementById('popup-close');
+const confettiCanvas=document.getElementById('confetti-canvas');
+const confettiCtx=confettiCanvas.getContext('2d'); let confettiParticles=[],confettiAnimationId=null;
 
-let confettiParticles = [];
-let confettiAnimationId = null;
+function resizeCanvas(){confettiCanvas.width=window.innerWidth; confettiCanvas.height=window.innerHeight;}
+window.addEventListener('resize',resizeCanvas); resizeCanvas();
 
-function resizeCanvas() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+function createConfetti(){confettiParticles=[];for(let i=0;i<100;i++){confettiParticles.push({x:Math.random()*confettiCanvas.width,y:Math.random()*confettiCanvas.height-confettiCanvas.height,size:Math.random()*8+4,color:`hsl(${Math.random()*360},100%,50%)`,tilt:Math.random()*10-10,speed:Math.random()*2+1});}}
+function drawConfetti(){confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);confettiParticles.forEach(p=>{confettiCtx.save();confettiCtx.translate(p.x,p.y);confettiCtx.rotate(p.tilt*Math.PI/180);confettiCtx.fillStyle=p.color;confettiCtx.font=`${p.size}px Arial`;confettiCtx.fillText('❤️',0,0);confettiCtx.restore();p.y+=p.speed;if(p.y>confettiCanvas.height)p.y=-10;});confettiAnimationId=requestAnimationFrame(drawConfetti);}
+function showHeartPopup(text){popupTekst.innerText=text;popup.classList.add('show');createConfetti();if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId); drawConfetti();}
+popupClose.onclick=()=>{popup.classList.remove('show');if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);}
 
-function createConfetti() {
-  confettiParticles = [];
-  for (let i=0;i<100;i++){
-    confettiParticles.push({
-      x: Math.random()*confettiCanvas.width,
-      y: Math.random()*confettiCanvas.height - confettiCanvas.height,
-      size: Math.random()*8+4,
-      color: `hsl(${Math.random()*360}, 100%, 50%)`,
-      tilt: Math.random()*10-10,
-      speed: Math.random()*2+1
-    });
-  }
-}
-
-function drawConfetti() {
-  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-  confettiParticles.forEach(p=>{
-    confettiCtx.save();
-    confettiCtx.translate(p.x, p.y);
-    confettiCtx.rotate(p.tilt * Math.PI / 180);
-    confettiCtx.fillStyle = p.color;
-    confettiCtx.font = `${p.size}px Arial`;
-    confettiCtx.fillText('❤️', 0, 0);
-    confettiCtx.restore();
-    p.y += p.speed;
-    if(p.y > confettiCanvas.height) p.y = -10;
-  });
-  confettiAnimationId = requestAnimationFrame(drawConfetti);
-}
-
-function showHeartPopup(text) {
-  popupTekst.innerText = text;
-  popup.classList.add('show');
-
-  createConfetti();
-  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
-  drawConfetti();
-}
-
-popupClose.onclick = () => {
-  popup.classList.remove('show');
-  if(confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
-  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-}
-
-// Regenbooghartjes gegarandeerd
-const kleuren = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8B00FF"];
-
+// Regenbooghartjes
+const kleuren=["#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#8B00FF"];
 teksten.forEach((t,i)=>{
-  const hart = document.createElement('span');
-  hart.className = 'hart';
-  hart.innerText = '❤️';
-  hart.style.color = kleuren[i % kleuren.length];
-  hart.style.setProperty('color', kleuren[i % kleuren.length], 'important');
-  hart.onclick = () => showHeartPopup(t);
-  hartjesContainer.appendChild(hart);
+  const hart=document.createElement('span'); hart.className='hart';
+  hart.innerText='❤️'; hart.style.color=kleur[i%kleuren.length]; hart.style.setProperty('color',kleuren[i%kleuren.length],'important');
+  hart.onclick=()=>showHeartPopup(t); hartjesContainer.appendChild(hart);
 });
 
 // GEHEIM
-const geheimWoord = "liefde";
-function checkCode(){
-  const invoer = document.getElementById("code").value.toLowerCase();
-  if(invoer===geheimWoord){
-    document.getElementById("geheim").style.display="block";
-  } else { alert("Fout woordje 😏"); }
-}
+const geheimWoord="liefde";
+function checkCode(){const invoer=document.getElementById("code").value.toLowerCase();if(invoer===geheimWoord){document.getElementById("geheim").style.display="block";} else alert("Fout woordje 😏");}
 
 // QR Code
-new QRCode(document.getElementById("qrcode"), {
-    text: "https://yashas37.github.io/valentijn/",
-    width: 128,
-    height: 128,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-});
+new QRCode(document.getElementById("qrcode"),{text:"https://yashas37.github.io/valentijn/",width:128,height:128,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
 </script>
-
 </body>
 </html>
