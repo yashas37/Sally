@@ -8,15 +8,13 @@
 body {
   margin:0; font-family:Arial,sans-serif; text-align:center;
   background:linear-gradient(#6EE7B7,#3B82F6);
-  overflow-x: hidden;
 }
 header {background:#2563EB;color:white;padding:20px;}
 h2 {margin-top:40px;}
 
 /* CAROUSEL */
 .carousel-container {
-  width: 90%; max-width: 320px; margin: 30px auto;
-  overflow: hidden; position: relative;
+  width: 90%; max-width: 320px; margin: 30px auto; position: relative;
 }
 .carousel-track {
   display: flex; transition: transform 0.4s ease;
@@ -30,6 +28,15 @@ h2 {margin-top:40px;}
 }
 .polaroid img {width:100%; border-radius:5px;}
 .caption {margin-top:8px;font-size:14px;}
+
+/* PIJLTJES */
+.arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  font-size:32px; color:#2563EB; cursor:pointer; user-select:none;
+  background:white; border-radius:50%; width:45px; height:45px; display:flex;
+  align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+#prev {left:-60px;} #next {right:-60px;}
 
 /* HARTJES */
 #hartjes-container {display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,auto));gap:5px;justify-content:center;margin:20px 0;}
@@ -64,13 +71,15 @@ button {background:#2563EB;color:white;border:none;padding:10px 20px;border-radi
 
 <h2>Onze herinneringen 📸</h2>
 <div class="carousel-container">
+  <div class="arrow" id="prev">❮</div>
+  <div class="arrow" id="next">❯</div>
   <div class="carousel-track" id="carousel">
     <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
     <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
     <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
   </div>
 </div>
-<p>Swipe of gebruik pijltjestoetsen 👉</p>
+<p>Klik op de pijltjes om te bladeren 👉</p>
 
 <h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
@@ -95,7 +104,6 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <div id="qrcode"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
 // CAROUSEL
 const carousel = document.getElementById('carousel');
@@ -107,23 +115,14 @@ function updateCarousel(){
   carousel.style.transform = `translateX(${offset}%)`;
 }
 
-function nextPhoto(){currentIndex = (currentIndex+1)%total; updateCarousel();}
-function prevPhoto(){currentIndex = (currentIndex-1+total)%total; updateCarousel();}
+document.getElementById('next').onclick = ()=>{currentIndex = (currentIndex+1)%total; updateCarousel();}
+document.getElementById('prev').onclick = ()=>{currentIndex = (currentIndex-1+total)%total; updateCarousel();}
 
-// Touch support
-let startX=0, isDragging=false;
-carousel.addEventListener('touchstart',e=>{startX=e.touches[0].clientX; isDragging=true;});
-carousel.addEventListener('touchend',e=>{
-  if(!isDragging) return;
-  let dx=e.changedTouches[0].clientX - startX;
-  if(dx<-30) nextPhoto(); else if(dx>30) prevPhoto();
-  isDragging=false;
-});
-
-// Keyboard arrows
+// KEYBOARD
 document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowLeft') prevPhoto();
-  if(e.key==='ArrowRight') nextPhoto();
+  if(e.key==='ArrowLeft') currentIndex=(currentIndex-1+total)%total;
+  if(e.key==='ArrowRight') currentIndex=(currentIndex+1)%total;
+  updateCarousel();
 });
 
 // HARTJES POPUP + CONFETTI
@@ -176,5 +175,6 @@ function checkCode(){const invoer=document.getElementById("code").value.toLowerC
 // QR Code
 new QRCode(document.getElementById("qrcode"),{text:"https://yashas37.github.io/valentijn/",width:128,height:128,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
 </script>
+
 </body>
 </html>
