@@ -11,16 +11,20 @@ body {
 }
 header {background:#2563EB;color:white;padding:20px;}
 h2 {margin-top:40px;}
-/* POLAROIDS */
-.polaroid-container {position:relative;width:260px;height:330px;margin:30px auto;}
-.polaroid {
-  position:absolute;width:100%;background:#E0F7FA;
-  padding:10px 10px 40px 10px;border-radius:10px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
-  transition:transform 0.3s ease;
-  touch-action:none; user-select:none;
+
+/* POLAROIDS CAROUSEL */
+.polaroid-container {
+  position:relative; width:260px; height:330px; margin:30px auto;
+  perspective:1000px;
 }
-.polaroid img {width:100%;border-radius:5px;}
+.polaroid {
+  position:absolute; width:100%; height:100%; background:#E0F7FA;
+  padding:10px 10px 40px 10px; border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; transition:transform 0.4s ease, opacity 0.4s ease;
+}
+.polaroid img {width:100%; border-radius:5px;}
 .caption {margin-top:8px;font-size:14px;}
 
 /* HARTJES */
@@ -39,6 +43,7 @@ h2 {margin-top:40px;}
 #popup.show {transform:translate(-50%,-50%) scale(1);}
 #popup-close {position:absolute;top:10px;right:15px;cursor:pointer;font-size:20px;}
 #confetti-canvas {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+
 #speciale {display:none;background:#2563EB;color:white;margin:30px;padding:20px;border-radius:20px;font-size:18px;}
 #geheim {display:none;background:white;margin:30px;padding:20px;border-radius:20px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
 input {padding:10px;border-radius:10px;border:1px solid #ccc;font-size:16px;}
@@ -47,6 +52,7 @@ button {background:#2563EB;color:white;border:none;padding:10px 20px;border-radi
 </style>
 </head>
 <body>
+
 <header>
 <h1>Voor mijn liefste <span id="naam">[NAAM]</span> ❤️</h1>
 <p>Speciaal voor jou</p>
@@ -58,7 +64,7 @@ button {background:#2563EB;color:white;border:none;padding:10px 20px;border-radi
   <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
   <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
 </div>
-<p>Swipe de polaroids 👉</p>
+<p>Swipe links of rechts om door te bladeren 👉</p>
 
 <h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
@@ -83,39 +89,37 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <div id="qrcode"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
-// POLAROID SWIPE STACK
+// POLAROID CAROUSEL
 const stack = document.getElementById('polaroid-stack');
 let cards = Array.from(stack.querySelectorAll('.polaroid'));
+let current = 0;
 
-function initCard(card){
-  let startX=0, currentX=0, isDragging=false;
-  const handleStart=e=>{
-    isDragging=true;
-    startX=e.touches?e.touches[0].clientX:e.clientX;
-    card.style.transition='none';
-  };
-  const handleMove=e=>{
-    if(!isDragging) return;
-    currentX=e.touches?e.touches[0].clientX:e.clientX;
-    let dx=currentX-startX;
-    card.style.transform=`translateX(${dx}px) rotate(${dx/10}deg)`;
-  };
-  const handleEnd=e=>{
-    isDragging=false;
-    let dx=currentX-startX;
-    card.style.transition='transform 0.3s ease';
-    card.style.transform=`translateX(0px) rotate(0deg)`;
-  };
-  card.addEventListener('touchstart',handleStart);
-  card.addEventListener('mousedown',handleStart);
-  card.addEventListener('touchmove',handleMove);
-  card.addEventListener('mousemove',handleMove);
-  card.addEventListener('touchend',handleEnd);
-  card.addEventListener('mouseup',handleEnd);
-  card.addEventListener('mouseleave',handleEnd);
+function showCard(index){
+  cards.forEach((card,i)=>{
+    card.style.zIndex = cards.length-i;
+    if(i<index) card.style.transform='translateX(-150px) scale(0.8) rotate(-10deg)'; 
+    else if(i>index) card.style.transform='translateX(150px) scale(0.8) rotate(10deg)';
+    else card.style.transform='translateX(0px) scale(1) rotate(0deg)';
+    card.style.opacity=(i===index?1:0.9);
+  });
 }
-cards.forEach(initCard);
+showCard(current);
+
+function swipeLeft(){ current = (current+1)%cards.length; showCard(current);}
+function swipeRight(){ current = (current-1+cards.length)%cards.length; showCard(current); }
+
+// Touch / Mouse
+let startX=0, isDragging=false;
+stack.addEventListener('touchstart', e=>{isDragging=true; startX=e.touches[0].clientX;});
+stack.addEventListener('mousedown', e=>{isDragging=true; startX=e.clientX;});
+stack.addEventListener('touchend', e=>{
+  if(!isDragging) return; let dx=e.changedTouches[0].clientX-startX; if(dx<-30) swipeLeft(); else if(dx>30) swipeRight(); isDragging=false;
+});
+stack.addEventListener('mouseup', e=>{
+  if(!isDragging) return; let dx=e.clientX-startX; if(dx<-30) swipeLeft(); else if(dx>30) swipeRight(); isDragging=false;
+});
 
 // HARTJES POPUP + CONFETTI
 const teksten = [
@@ -137,10 +141,12 @@ const teksten = [
 ];
 
 const hartjesContainer = document.getElementById('hartjes-container');
-const popup=document.getElementById('popup'); const popupTekst=document.getElementById('popup-tekst');
+const popup=document.getElementById('popup'); 
+const popupTekst=document.getElementById('popup-tekst');
 const popupClose=document.getElementById('popup-close');
 const confettiCanvas=document.getElementById('confetti-canvas');
-const confettiCtx=confettiCanvas.getContext('2d'); let confettiParticles=[],confettiAnimationId=null;
+const confettiCtx=confettiCanvas.getContext('2d'); 
+let confettiParticles=[],confettiAnimationId=null;
 
 function resizeCanvas(){confettiCanvas.width=window.innerWidth; confettiCanvas.height=window.innerHeight;}
 window.addEventListener('resize',resizeCanvas); resizeCanvas();
@@ -154,7 +160,7 @@ popupClose.onclick=()=>{popup.classList.remove('show');if(confettiAnimationId) c
 const kleuren=["#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#8B00FF"];
 teksten.forEach((t,i)=>{
   const hart=document.createElement('span'); hart.className='hart';
-  hart.innerText='❤️'; hart.style.color=kleur[i%kleuren.length]; hart.style.setProperty('color',kleuren[i%kleuren.length],'important');
+  hart.innerText='❤️'; hart.style.color=kleuren[i%kleuren.length]; hart.style.setProperty('color',kleuren[i%kleuren.length],'important');
   hart.onclick=()=>showHeartPopup(t); hartjesContainer.appendChild(hart);
 });
 
