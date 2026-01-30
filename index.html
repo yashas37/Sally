@@ -13,44 +13,29 @@ body{
   overflow-x:hidden;
   background: linear-gradient(135deg,#b7e4c7,#a2d2ff);
 }
-
-/* ALGEMEEN */
 section{
   padding:50px 20px;
   text-align:center;
   transition: background 0.5s ease;
 }
+section:nth-of-type(odd){background: rgba(255,255,255,0.1);}
+section:nth-of-type(even){background: rgba(255,255,255,0.05);}
+h1{font-size:2.4em; letter-spacing:1px; margin-bottom:10px;}
+h2{font-size:1.8em; color:#034; margin-bottom:10px;}
+p{font-size:1.1em; line-height:1.5;}
 
-/* AFWISSELENDE SECTIE ACHTERGRONDEN */
-section:nth-of-type(odd){
-  background: rgba(255,255,255,0.1);
-}
-section:nth-of-type(even){
-  background: rgba(255,255,255,0.05);
-}
-
-h1{
-  font-size:2.4em;
-  letter-spacing:1px;
-  margin-bottom:10px;
-}
-h2{
-  font-size:1.8em;
-  color:#034;
-  margin-bottom:10px;
-}
-p{
-  font-size:1.1em;
-  line-height:1.5;
-}
-
-/* CARDS VOOR CAROUSEL & HARTJES */
+/* CARDS - UNIFORM SIZE */
 .card{
   background: rgba(255,255,255,0.85);
   padding:20px;
   border-radius:25px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   display:inline-block;
+  width: 90%;
+  max-width: 400px;
+  min-height: 250px;
+  margin:20px auto;
+  vertical-align:top;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover{
@@ -78,7 +63,8 @@ p{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:white;
+  background:black;
+  color:white;
   border:none;
   font-size:25px;
   padding:5px 10px;
@@ -86,8 +72,8 @@ p{
   border-radius:50%;
   z-index:10;
 }
-.left{left:-40px}
-.right{right:-40px}
+.left{left:-40px;}
+.right{right:-40px;}
 
 /* HARTJES */
 .hearts{
@@ -102,9 +88,7 @@ p{
   cursor:pointer;
   transition:transform 0.2s;
 }
-.heart:hover{
-  transform:scale(1.2);
-}
+.heart:hover{transform:scale(1.2);}
 
 /* POPUPS */
 .popup-bg{
@@ -164,8 +148,6 @@ input{
     opacity:0;
   }
 }
-
-/* ANIMATIE POPUP */
 @keyframes popupIn{
   from{transform:scale(0.8);opacity:0;}
   to{transform:scale(1);opacity:1;}
@@ -312,7 +294,7 @@ img.style.opacity=1;
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
 
-// SWIPE VOOR MOBIEL
+/* SWIPE VOOR MOBIEL */
 let startX=0;
 const carousel=document.getElementById("carousel");
 carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
