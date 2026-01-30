@@ -11,35 +11,34 @@ html, body {
   padding:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(#6EE7B7,#3B82F6);
-  overflow-x: hidden; /* BELANGRIJK */
+  overflow-x: hidden;
+  text-align:center;
 }
 
 header {
   background:#2563EB;
   color:white;
   padding:20px;
-  text-align:center;
 }
 
-h2 { margin-top:40px; text-align:center; }
+h2 { margin-top:40px; }
 
 /* ===== CAROUSEL ===== */
 .carousel-container {
   width: 90%;
   max-width: 320px;
   margin: 30px auto;
-  overflow: hidden;       /* BELANGRIJK */
+  overflow: hidden;
   position: relative;
 }
 
 .carousel-track {
   display: flex;
-  width: 100%;
   transition: transform 0.4s ease;
 }
 
 .polaroid {
-  min-width: 100%;        /* BELANGRIJK */
+  min-width: 100%;
   background:#D0F0FF;
   padding:10px 10px 40px 10px;
   border-radius:12px;
@@ -103,9 +102,7 @@ h2 { margin-top:40px; text-align:center; }
   max-width:90%;
   transition:0.3s;
 }
-#popup.show {
-  transform:translate(-50%,-50%) scale(1);
-}
+#popup.show { transform:translate(-50%,-50%) scale(1); }
 #popup-close {
   position:absolute;
   top:10px;
@@ -123,6 +120,27 @@ h2 { margin-top:40px; text-align:center; }
   pointer-events:none;
   z-index:999;
 }
+
+/* GEHEIM */
+#geheim {
+  display:none;
+  background:white;
+  margin:20px auto;
+  padding:20px;
+  border-radius:15px;
+  max-width:300px;
+}
+input, button {
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
+button {
+  background:#2563EB;
+  color:white;
+  margin-top:10px;
+}
 </style>
 </head>
 
@@ -133,7 +151,6 @@ h2 { margin-top:40px; text-align:center; }
 </header>
 
 <h2>Onze herinneringen 📸</h2>
-
 <div class="carousel-container">
   <div class="arrow" id="prev">❮</div>
   <div class="arrow" id="next">❯</div>
@@ -161,11 +178,26 @@ h2 { margin-top:40px; text-align:center; }
   <span id="popup-close">✖</span>
   <p id="popup-tekst"></p>
 </div>
-
 <canvas id="confetti-canvas"></canvas>
 
+<h2>Onze playlist 🎵</h2>
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/playlist/PLAK_HIER_JE_PLAYLIST_ID"
+width="90%" height="380" frameborder="0"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<h2>Geheime pagina 🔐</h2>
+<input type="text" id="code" placeholder="Typ het geheime woord"><br>
+<small>Tip: het woord heeft alles met ons te maken ❤️</small><br>
+<button onclick="checkCode()">Ontgrendel</button>
+
+<div id="geheim">
+<h3>Alleen voor jou ❤️</h3>
+<p>Hier komt jouw geheime boodschap…</p>
+</div>
+
 <script>
-/* ===== CAROUSEL ===== */
+/* CAROUSEL */
 const carousel = document.getElementById("carousel");
 const total = carousel.children.length;
 let index = 0;
@@ -173,7 +205,6 @@ let index = 0;
 function updateCarousel() {
   carousel.style.transform = `translateX(-${index * 100}%)`;
 }
-
 document.getElementById("next").onclick = () => {
   index = (index + 1) % total;
   updateCarousel();
@@ -183,7 +214,7 @@ document.getElementById("prev").onclick = () => {
   updateCarousel();
 };
 
-/* ===== HARTJES ===== */
+/* HARTJES */
 const teksten = [
 "Ik hou van hoe jij altijd mijn dag beter maakt.",
 "Ik hou van hoe jij lacht om mijn domme grapjes.",
@@ -203,7 +234,6 @@ const teksten = [
 ];
 
 const kleuren=["#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#8B00FF"];
-
 const container = document.getElementById("hartjes-container");
 const popup = document.getElementById("popup");
 const popupTekst = document.getElementById("popup-tekst");
@@ -262,6 +292,17 @@ popup.classList.remove("show");
 cancelAnimationFrame(anim);
 ctx.clearRect(0,0,canvas.width,canvas.height);
 };
+
+/* GEHEIM */
+const geheimWoord="liefde";
+function checkCode(){
+const invoer=document.getElementById("code").value.toLowerCase();
+if(invoer===geheimWoord){
+document.getElementById("geheim").style.display="block";
+} else {
+alert("Fout woordje 😏");
+}
+}
 </script>
 
 </body>
