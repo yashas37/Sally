@@ -77,10 +77,26 @@ h1,h2{margin-bottom:10px}
 .popup{
   background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
   padding:20px;
-  border-radius:25px;
+  border-radius:30px;
   max-width:85%;
   box-shadow:0 0 20px rgba(0,0,0,0.2);
   animation:popupIn 0.3s ease;
+}
+
+/* BUTTON */
+button{
+  background:linear-gradient(135deg,#60a5fa,#34d399);
+  color:white;
+  border:none;
+  padding:12px 25px;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* INPUT */
@@ -90,7 +106,24 @@ input{
   border:1px solid #aaa;
 }
 
-/* ANIMATIONS */
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  top:-10px;
+  font-size:24px;
+  animation:fall 3s linear forwards;
+  pointer-events:none;
+  z-index:2000;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(100vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* ANIM */
 @keyframes popupIn{
   from{transform:scale(0.8);opacity:0;}
   to{transform:scale(1);opacity:1;}
@@ -180,18 +213,36 @@ function closePopup(){
 document.getElementById("popupBg").style.display="none";
 }
 
+/* CONFETTI */
+let confettiInterval;
+function startConfetti(){
+confettiInterval=setInterval(()=>{
+const c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.innerText="❤️";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+},200);
+}
+function stopConfetti(){
+clearInterval(confettiInterval);
+}
+
 /* SECRET */
 function checkSecret(){
 const answer = "liefje";  
 const input = document.getElementById("secretInput").value.toLowerCase();
 if(input === answer){
 document.getElementById("secretPopup").style.display="flex";
+startConfetti();
 }else{
 alert("Bijna... probeer nog eens 💭");
 }
 }
 function closeSecret(){
 document.getElementById("secretPopup").style.display="none";
+stopConfetti();
 }
 
 /* CAROUSEL */
