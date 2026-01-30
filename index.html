@@ -25,21 +25,16 @@ section{
   border-top:1px solid rgba(0,0,0,0.05);
   border-bottom:1px solid rgba(0,0,0,0.05);
 }
-section:nth-of-type(1){background: linear-gradient(135deg,#d8f3dc,#b7e4c7);}
-section:nth-of-type(2){background: linear-gradient(135deg,#ade8f4,#90e0ef);}
-section:nth-of-type(3){background: linear-gradient(135deg,#caf0f8,#ade8f4);}
-section:nth-of-type(4){background: linear-gradient(135deg,#ffd6a5,#ffc6a5);}
-section:nth-of-type(5){background: linear-gradient(135deg,#ffadad,#ffd6d6);}
-section:nth-of-type(6){background: linear-gradient(135deg,#cdb4db,#b28dff);}
-section:nth-of-type(7){background: linear-gradient(135deg,#ffc6ff,#ffb6c1);}
+section:nth-of-type(odd){background: linear-gradient(135deg,#d8f3dc,#b7e4c7);}
+section:nth-of-type(even){background: linear-gradient(135deg,#ade8f4,#90e0ef);}
 section.visible{
   opacity:1;
   transform: translateY(0);
 }
 
-/* CARDS - UNIFORM SIZE EN MINDER FEL WIT */
+/* CARDS - ALLEMAAL ZELFDE KLEUR, MINDER FEL */
 .card{
-  background: rgba(255,255,255,0.6); /* minder fel wit */
+  background: rgba(255,255,255,0.6); /* vaste kaartkleur */
   padding:25px;
   border-radius:25px;
   box-shadow:0 8px 25px rgba(0,0,0,0.15);
