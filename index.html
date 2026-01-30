@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sally</title>
+<title>Voor mijn liefste ❤️</title>
 
 <style>
 html, body {
-  margin:0;
-  padding:0;
+  margin:0; padding:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(#6EE7B7,#3B82F6);
   overflow-x:hidden;
@@ -16,12 +15,7 @@ html, body {
 }
 
 /* HEADER */
-header {
-  background:#2563EB;
-  color:white;
-  padding:20px;
-  text-align:center;
-}
+header { background:#2563EB; color:white; padding:20px; text-align:center; }
 h2 { margin-top:40px; }
 
 /* ===== CAROUSEL ===== */
@@ -39,121 +33,61 @@ h2 { margin-top:40px; }
 }
 
 .polaroid {
-  min-width:100%;
-  box-sizing:border-box; /* zorgt dat padding in width zit */
+  flex:0 0 100%; /* 1 slide per keer */
+  box-sizing:border-box;
   background:#D0F0FF;
-  padding:10px 10px 40px 10px;
+  padding:10px 10px 40px;
   border-radius:12px;
   box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
-.polaroid img {
-  width:100%;
-  border-radius:6px;
-}
-
+.polaroid img { width:100%; border-radius:6px; }
 .caption { text-align:center; margin-top:8px; }
 
 /* PIJLTJES */
 .arrow {
-  position:absolute;
-  top:50%;
+  position:absolute; top:50%;
   transform:translateY(-50%);
-  background:white;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:22px;
-  cursor:pointer;
+  background:white; border-radius:50%;
+  width:40px; height:40px;
+  display:flex; justify-content:center; align-items:center;
+  font-size:22px; cursor:pointer;
   box-shadow:0 2px 8px rgba(0,0,0,0.3);
   user-select:none;
 }
-#prev { left:5px; }
-#next { right:5px; }
+#prev { left:5px; } #next { right:5px; }
 
 /* ===== HARTJES ===== */
-#hartjes-container {
-  display:grid;
-  grid-template-columns: repeat(5, 42px);
-  gap:8px;
-  justify-content:center;
-  margin:20px;
-}
-
-.hart {
-  font-size:32px;
-  cursor:pointer;
-  transition:transform 0.2s;
-}
+#hartjes-container { display:grid; grid-template-columns: repeat(5, 42px); gap:8px; justify-content:center; margin:20px; }
+.hart { font-size:32px; cursor:pointer; transition:transform 0.2s; }
 .hart:hover { transform:scale(1.3); }
 
 /* ===== OVERLAY + POPUP ===== */
 #overlay {
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  display:none;
-  z-index:999;
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.5); display:none; z-index:999;
 }
-
 #popup {
-  position:fixed;
-  top:50%;
-  left:50%;
+  position:fixed; top:50%; left:50%;
   transform:translate(-50%,-50%) scale(0);
   background:linear-gradient(135deg,#D6EDFF,#B8FFD6);
-  padding:25px;
-  border-radius:25px;
+  padding:25px; border-radius:25px;
   box-shadow:0 10px 30px rgba(0,0,0,0.4);
-  z-index:1000;
-  max-width:85%;
-  transition:0.3s;
-  word-wrap:break-word;
+  z-index:1000; max-width:85%; transition:0.3s; word-wrap:break-word;
 }
 #popup.show { transform:translate(-50%,-50%) scale(1); }
-#popup-close {
-  position:absolute;
-  top:10px;
-  right:15px;
-  cursor:pointer;
-  font-size:20px;
-}
+#popup-close { position:absolute; top:10px; right:15px; cursor:pointer; font-size:20px; }
 
 /* CONFETTI */
 #confetti-canvas {
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:998;
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:998;
 }
 
 /* GEHEIM */
-#geheim {
-  display:none;
-  background:white;
-  margin:20px auto;
-  padding:20px;
-  border-radius:15px;
-  max-width:300px;
-}
-input, button {
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
-}
-button {
-  background:#2563EB;
-  color:white;
-  margin-top:10px;
-}
+#geheim { display:none; background:white; margin:20px auto; padding:20px; border-radius:15px; max-width:300px; }
+input, button { padding:10px; border-radius:10px; border:none; font-size:16px; }
+button { background:#2563EB; color:white; margin-top:10px; }
 
 /* RESPONSIVE */
 @media(min-width:768px){
@@ -162,38 +96,27 @@ button {
 }
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>Lieve Sally, wil jij mijn Valentijn zijn? ❤️</h1>
+<h1>Voor mijn liefste [NAAM] ❤️</h1>
 </header>
 
-<h2>Een aantal van mijn favoriete herinneringen 📸</h2>
+<h2>Onze herinneringen 📸</h2>
 <div class="carousel-container">
   <div class="arrow" id="prev">❮</div>
   <div class="arrow" id="next">❯</div>
 
   <div class="carousel-track" id="carousel">
-    <div class="polaroid">
-      <img src="fotos/foto1.jpg">
-      <div class="caption">Onze eerste date 💕</div>
-    </div>
-    <div class="polaroid">
-      <img src="fotos/foto2.jpg">
-      <div class="caption">Samen lachen 😄</div>
-    </div>
-    <div class="polaroid">
-      <img src="fotos/foto3.jpg">
-      <div class="caption">Mijn favoriete foto 😍</div>
-    </div>
+    <div class="polaroid"><img src="fotos/foto1.jpg"><div class="caption">Onze eerste date 💕</div></div>
+    <div class="polaroid"><img src="fotos/foto2.jpg"><div class="caption">Samen lachen 😄</div></div>
+    <div class="polaroid"><img src="fotos/foto3.jpg"><div class="caption">Mijn favoriete foto 😍</div></div>
   </div>
 </div>
 
-<h2>Er zijn zoveel redenen waarom ik gek op op jou ben</h2>
+<h2>Druk op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
-<p class="hartjes-ondertitel">Klik op de hartjes om een aantal van die redenen te zien 💌</p>
-
+<p class="hartjes-ondertitel">Klik op een hartje om te zien waarom ik zo gek op je ben 💌</p>
 
 <div id="overlay"></div>
 <div id="popup">
@@ -203,15 +126,15 @@ button {
 
 <canvas id="confetti-canvas"></canvas>
 
-<h2>Een playlist speciaal voor jou🎵</h2>
+<h2>Onze playlist 🎵</h2>
 <iframe style="border-radius:12px"
 src="https://open.spotify.com/embed/playlist/PLAK_HIER_JE_PLAYLIST_ID"
 width="90%" height="380" frameborder="0"
 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
-<h2> Een geheime boodschap 🔐</h2>
+<h2>Geheime pagina 🔐</h2>
 <input type="text" id="code" placeholder="Typ het geheime woord"><br>
-<small>Tip: in welke stad hadden we onze eerste date? ❤️</small><br>
+<small>Tip: het woord heeft alles met ons te maken ❤️</small><br>
 <button onclick="checkCode()">Ontgrendel</button>
 <div id="geheim">
 <h3>Alleen voor jou ❤️</h3>
@@ -221,24 +144,19 @@ allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-pictur
 <script>
 /* CAROUSEL */
 const carousel = document.getElementById("carousel");
-const total = carousel.children.length;
+const slides = carousel.children;
 let index = 0;
 
-function updateCarousel() {
+function showSlide(i){
+  index = (i + slides.length) % slides.length; // wrap-around
   carousel.style.transform = `translateX(-${index * 100}%)`;
 }
 
-document.getElementById("next").onclick = () => {
-  index = (index + 1) % total;
-  updateCarousel();
-};
-document.getElementById("prev").onclick = () => {
-  index = (index - 1 + total) % total;
-  updateCarousel();
-};
+document.getElementById("next").onclick = ()=>showSlide(index+1);
+document.getElementById("prev").onclick = ()=>showSlide(index-1);
 
 /* HARTJES */
-const teksten = [
+const teksten=[
 "Ik hou van hoe jij altijd mijn dag beter maakt.",
 "Ik hou van hoe jij lacht om mijn domme grapjes.",
 "Ik hou van hoe veilig ik me bij jou voel.",
@@ -267,7 +185,7 @@ teksten.forEach((t,i)=>{
   const h = document.createElement("span");
   h.className="hart";
   h.innerText="❤️";
-  h.style.color = kleuren[i % kleuren.length];
+  h.style.color=kleuren[i%kleuren.length];
   h.onclick=()=>showPopup(t);
   container.appendChild(h);
 });
@@ -323,12 +241,11 @@ closeBtn.onclick=closePopup;
 overlay.onclick=closePopup;
 
 /* GEHEIM */
-const geheimWoord="Utrecht";
+const geheimWoord="liefde";
 function checkCode(){
 const invoer=document.getElementById("code").value.toLowerCase();
-if(invoer===geheimWoord){
-document.getElementById("geheim").style.display="block";
-} else { alert("Try again 😏"); }
+if(invoer===geheimWoord){ document.getElementById("geheim").style.display="block"; }
+else { alert("Fout woordje 😏"); }
 }
 </script>
 
