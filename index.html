@@ -9,7 +9,7 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#e0f2fe,#ecfeff);
+  background: linear-gradient(135deg,#b7e4c7,#a2d2ff);
   color:#033;
   overflow-x:hidden;
 }
@@ -17,47 +17,7 @@ section{
   padding:40px 20px;
   text-align:center;
 }
-.scroll-btn{
-  margin-top:20px;
-  background:#38bdf8;
-  color:white;
-  border:none;
-  padding:12px 20px;
-  border-radius:20px;
-  font-size:16px;
-  cursor:pointer;
-}
 h1,h2{margin-bottom:10px}
-
-/* HARTJES */
-.hearts{
-  display:grid;
-  grid-template-columns: repeat(5,60px);
-  justify-content:center;
-  gap:8px;
-}
-.heart{
-  font-size:40px;
-  cursor:pointer;
-}
-
-/* POPUP */
-.popup-bg{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.5);
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-.popup{
-  background:linear-gradient(135deg,#dbeafe,#e0f2fe);
-  padding:20px;
-  border-radius:25px;
-  max-width:85%;
-  box-shadow:0 0 20px rgba(0,0,0,0.2);
-}
 
 /* CAROUSEL */
 .carousel{
@@ -68,6 +28,11 @@ h1,h2{margin-bottom:10px}
 .carousel img{
   width:100%;
   border-radius:20px;
+  transition:opacity 0.5s ease;
+}
+.caption{
+  margin-top:8px;
+  font-style:italic;
 }
 .arrow{
   position:absolute;
@@ -83,47 +48,86 @@ h1,h2{margin-bottom:10px}
 .left{left:-40px}
 .right{right:-40px}
 
+/* HARTJES */
+.hearts{
+  display:grid;
+  grid-template-columns: repeat(5,60px);
+  justify-content:center;
+  gap:8px;
+}
+.heart{
+  font-size:40px;
+  cursor:pointer;
+  transition:transform 0.2s;
+}
+.heart:hover{
+  transform:scale(1.2);
+}
+
+/* POPUPS */
+.popup-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.popup{
+  background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
+  padding:20px;
+  border-radius:25px;
+  max-width:85%;
+  box-shadow:0 0 20px rgba(0,0,0,0.2);
+  animation:popupIn 0.3s ease;
+}
+
+/* INPUT */
 input{
   padding:10px;
   border-radius:10px;
   border:1px solid #aaa;
+}
+
+/* ANIMATIONS */
+@keyframes popupIn{
+  from{transform:scale(0.8);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<section id="start">
+<section>
 <h1>Voor jou ❤️</h1>
 <p>Ik mis je elke dag.</p>
-<button class="scroll-btn" onclick="scrollToId('countdown')">Ga verder ⬇️</button>
 </section>
 
-<section id="countdown">
+<section>
 <h2>Nog zo lang tot ik je weer zie:</h2>
 <p id="timer"></p>
-<button class="scroll-btn" onclick="scrollToId('locatie')">Volgende ⬇️</button>
 </section>
 
-<section id="locatie">
+<section>
 <h2>Waar we nu zijn</h2>
 <p>Jij bent nu in: <b>Zuid-Amerika 🌎</b></p>
 <p>Ik ben nu in: <b>Nederland 🇳🇱</b></p>
 <p>Maar in mijn hoofd ben je naast me ❤️</p>
-<button class="scroll-btn" onclick="scrollToId('carousel')">Volgende ⬇️</button>
 </section>
 
-<section id="carousel">
+<section>
 <h2>Onze herinneringen 📸</h2>
 <div class="carousel">
 <button class="arrow left" onclick="prev()">‹</button>
 <img id="slide" src="fotos/foto1.jpg">
 <button class="arrow right" onclick="next()">›</button>
 </div>
-<button class="scroll-btn" onclick="scrollToId('hearts')">Volgende ⬇️</button>
+<p class="caption" id="caption">Onze eerste foto samen</p>
 </section>
 
-<section id="hearts">
+<section>
 <h2>Klik op de hartjes 💙</h2>
 <div class="hearts">
 <div class="heart" onclick="openPopup('Ik hou van je')">💙</div>
@@ -137,12 +141,10 @@ input{
 <p>Tip: hoe noem ik jou?</p>
 <input id="secretInput" placeholder="Raad het woord">
 <br><br>
-<button class="scroll-btn" onclick="checkSecret()">Open geheim</button>
-
-<button class="scroll-btn" onclick="scrollToId('music')">Laatste ⬇️</button>
+<button onclick="checkSecret()">Open geheim</button>
 </section>
 
-<section id="music">
+<section>
 <h2>Ons liedje 🎧</h2>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </section>
@@ -160,10 +162,6 @@ input{
 </div>
 
 <script>
-function scrollToId(id){
-document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
-
 /* COUNTDOWN */
 const target = new Date("2026-02-14");
 setInterval(()=>{
@@ -184,7 +182,7 @@ document.getElementById("popupBg").style.display="none";
 
 /* SECRET */
 function checkSecret(){
-const answer = "liefje";   // ← HIER JE WOORD
+const answer = "liefje";  
 const input = document.getElementById("secretInput").value.toLowerCase();
 if(input === answer){
 document.getElementById("secretPopup").style.display="flex";
@@ -197,10 +195,20 @@ document.getElementById("secretPopup").style.display="none";
 }
 
 /* CAROUSEL */
-const fotos=["fotos/foto1.jpg","fotos/foto2.jpg","fotos/foto3.jpg"];
+const fotos=[
+  {src:"fotos/foto1.jpg", text:"Onze eerste foto samen"},
+  {src:"fotos/foto2.jpg", text:"Mijn favoriete herinnering met jou"},
+  {src:"fotos/foto3.jpg", text:"Tot we weer samen zijn"}
+];
 let i=0;
 function show(){
-document.getElementById("slide").src=fotos[i];
+const img=document.getElementById("slide");
+img.style.opacity=0;
+setTimeout(()=>{
+img.src=fotos[i].src;
+document.getElementById("caption").innerText=fotos[i].text;
+img.style.opacity=1;
+},200);
 }
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
