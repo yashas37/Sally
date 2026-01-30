@@ -24,6 +24,7 @@ h1,h2{margin-bottom:10px}
   position:relative;
   max-width:300px;
   margin:auto;
+  touch-action: pan-y; /* voorkomt horizontale page scroll tijdens swipe */
 }
 .carousel img{
   width:100%;
@@ -153,10 +154,10 @@ input{
 
 <section>
 <h2>Onze herinneringen 📸</h2>
-<div class="carousel">
-<button class="arrow left" onclick="prev()">‹</button>
-<img id="slide" src="fotos/foto1.jpg">
-<button class="arrow right" onclick="next()">›</button>
+<div class="carousel" id="carousel">
+  <button class="arrow left" onclick="prev()">‹</button>
+  <img id="slide" src="fotos/foto1.jpg">
+  <button class="arrow right" onclick="next()">›</button>
 </div>
 <p class="caption" id="caption">Onze eerste foto samen</p>
 </section>
@@ -275,6 +276,16 @@ img.style.opacity=1;
 }
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
+
+// SWIPE VOOR MOBIEL
+let startX=0;
+const carousel=document.getElementById("carousel");
+carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
+carousel.addEventListener("touchend",e=>{
+  let endX=e.changedTouches[0].clientX;
+  if(endX < startX - 40){ next(); } // swipe links
+  if(endX > startX + 40){ prev(); } // swipe rechts
+});
 </script>
 
 </body>
