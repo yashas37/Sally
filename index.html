@@ -1,9 +1,10 @@
+//
 <!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voor mijn liefste ❤️</title>
+<title>❤️My Valentine❤️</title>
 
 <style>
 html, body {
@@ -11,42 +12,38 @@ html, body {
   padding:0;
   font-family: Arial, sans-serif;
   background: linear-gradient(#6EE7B7,#3B82F6);
-  overflow-x:hidden;
+  overflow-x: hidden;
+  text-align:center;
 }
 
 header {
   background:#2563EB;
   color:white;
   padding:20px;
-  text-align:center;
 }
 
-h2 { text-align:center; margin-top:40px; }
+h2 { margin-top:40px; }
 
 /* ===== CAROUSEL ===== */
 .carousel-container {
-  width:90%;
-  max-width:350px;
-  margin:30px auto;
-  overflow:hidden;
-  position:relative;
-}
-
-@media(min-width:768px){
-  .carousel-container { max-width:450px; }
+  width: 90%;
+  max-width: 320px;
+  margin: 30px auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .carousel-track {
-  display:flex;
+  display: flex;
   transition: transform 0.4s ease;
 }
 
 .polaroid {
-  min-width:100%;
+  min-width: 100%;
   background:#D0F0FF;
-  padding:10px 10px 40px;
+  padding:10px 10px 40px 10px;
   border-radius:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .polaroid img {
@@ -54,7 +51,7 @@ h2 { text-align:center; margin-top:40px; }
   border-radius:6px;
 }
 
-.caption { text-align:center; margin-top:8px; }
+.caption { margin-top:8px; font-size:14px; }
 
 /* PIJLTJES */
 .arrow {
@@ -70,7 +67,8 @@ h2 { text-align:center; margin-top:40px; }
   align-items:center;
   font-size:22px;
   cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+  user-select:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
 }
 #prev { left:5px; }
 #next { right:5px; }
@@ -78,7 +76,7 @@ h2 { text-align:center; margin-top:40px; }
 /* ===== HARTJES ===== */
 #hartjes-container {
   display:grid;
-  grid-template-columns: repeat(5, 42px);
+  grid-template-columns: repeat(5, 40px);
   gap:8px;
   justify-content:center;
   margin:20px;
@@ -91,17 +89,7 @@ h2 { text-align:center; margin-top:40px; }
 }
 .hart:hover { transform:scale(1.3); }
 
-/* ===== OVERLAY + POPUP ===== */
-#overlay {
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  display:none;
-  z-index:999;
-}
-
+/* POPUP */
 #popup {
   position:fixed;
   top:50%;
@@ -110,14 +98,12 @@ h2 { text-align:center; margin-top:40px; }
   background:linear-gradient(135deg,#D6EDFF,#B8FFD6);
   padding:25px;
   border-radius:25px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
   z-index:1000;
-  max-width:85%;
+  max-width:90%;
   transition:0.3s;
 }
-#popup.show {
-  transform:translate(-50%,-50%) scale(1);
-}
+#popup.show { transform:translate(-50%,-50%) scale(1); }
 #popup-close {
   position:absolute;
   top:10px;
@@ -126,14 +112,35 @@ h2 { text-align:center; margin-top:40px; }
   font-size:20px;
 }
 
-/* CONFETTI */
 #confetti-canvas {
   position:fixed;
-  top:0; left:0;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:998;
+  z-index:999;
+}
+
+/* GEHEIM */
+#geheim {
+  display:none;
+  background:white;
+  margin:20px auto;
+  padding:20px;
+  border-radius:15px;
+  max-width:300px;
+}
+input, button {
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
+button {
+  background:#2563EB;
+  color:white;
+  margin-top:10px;
 }
 </style>
 </head>
@@ -141,11 +148,10 @@ h2 { text-align:center; margin-top:40px; }
 <body>
 
 <header>
-<h1>Voor mijn liefste [NAAM] ❤️</h1>
+<h1>Sally, wil jij mijn Valentijn zijn? ❤️</h1>
 </header>
 
-<h2>Onze herinneringen 📸</h2>
-
+<h2>Een aantal van mijn favoriete herinneringen 📸</h2>
 <div class="carousel-container">
   <div class="arrow" id="prev">❮</div>
   <div class="arrow" id="next">❯</div>
@@ -166,17 +172,30 @@ h2 { text-align:center; margin-top:40px; }
   </div>
 </div>
 
-<h2>Druk op de hartjes 💙</h2>
+<h2>Er zijn zó veel redenen waarom ik van jou hou. Klik op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
-
-<div id="overlay"></div>
 
 <div id="popup">
   <span id="popup-close">✖</span>
   <p id="popup-tekst"></p>
 </div>
-
 <canvas id="confetti-canvas"></canvas>
+
+<h2>Een playlist speciaal voor jou </h2>
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/playlist/PLAK_HIER_JE_PLAYLIST_ID"
+width="90%" height="380" frameborder="0"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<h2> Een speciale boodschap 🔐</h2>
+<input type="text" id="code" placeholder="Typ het geheime woord"><br>
+<small>Tip: Onze datum (dd/mm/jjjj) ❤️</small><br>
+<button onclick="checkCode()">Ontgrendel</button>
+
+<div id="geheim">
+<h3>Alleen voor jou ❤️</h3>
+<p>Jaaaaa ik ben zo blij met.... </p>
+</div>
 
 <script>
 /* CAROUSEL */
@@ -187,7 +206,6 @@ let index = 0;
 function updateCarousel() {
   carousel.style.transform = `translateX(-${index * 100}%)`;
 }
-
 document.getElementById("next").onclick = () => {
   index = (index + 1) % total;
   updateCarousel();
@@ -217,12 +235,10 @@ const teksten = [
 ];
 
 const kleuren=["#FF0000","#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#8B00FF"];
-
 const container = document.getElementById("hartjes-container");
 const popup = document.getElementById("popup");
 const popupTekst = document.getElementById("popup-tekst");
 const closeBtn = document.getElementById("popup-close");
-const overlay = document.getElementById("overlay");
 
 teksten.forEach((t,i)=>{
   const h = document.createElement("span");
@@ -268,21 +284,28 @@ anim=requestAnimationFrame(draw);
 function showPopup(text){
 popupTekst.innerText=text;
 popup.classList.add("show");
-overlay.style.display="block";
 makeConfetti();
 draw();
 }
 
-function closePopup(){
+closeBtn.onclick=()=>{
 popup.classList.remove("show");
-overlay.style.display="none";
 cancelAnimationFrame(anim);
 ctx.clearRect(0,0,canvas.width,canvas.height);
-}
+};
 
-closeBtn.onclick=closePopup;
-overlay.onclick=closePopup;
+/* GEHEIM */
+const geheimWoord="23/01/2026";
+function checkCode(){
+const invoer=document.getElementById("code").value.toLowerCase();
+if(invoer===geheimWoord){
+document.getElementById("geheim").style.display="block";
+} else {
+alert("Try again😏");
+}
+}
 </script>
 
 </body>
 </html>
+//
