@@ -8,23 +8,62 @@
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#b7e4c7,#a2d2ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:#033;
   overflow-x:hidden;
+  background: linear-gradient(135deg,#b7e4c7,#a2d2ff);
 }
+
+/* ALGEMEEN */
 section{
-  padding:40px 20px;
+  padding:50px 20px;
   text-align:center;
+  transition: background 0.5s ease;
 }
-h1,h2{margin-bottom:10px}
+
+/* AFWISSELENDE SECTIE ACHTERGRONDEN */
+section:nth-of-type(odd){
+  background: rgba(255,255,255,0.1);
+}
+section:nth-of-type(even){
+  background: rgba(255,255,255,0.05);
+}
+
+h1{
+  font-size:2.4em;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+h2{
+  font-size:1.8em;
+  color:#034;
+  margin-bottom:10px;
+}
+p{
+  font-size:1.1em;
+  line-height:1.5;
+}
+
+/* CARDS VOOR CAROUSEL & HARTJES */
+.card{
+  background: rgba(255,255,255,0.85);
+  padding:20px;
+  border-radius:25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display:inline-block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover{
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
 
 /* CAROUSEL */
 .carousel{
   position:relative;
-  max-width:300px;
+  max-width:320px;
   margin:auto;
-  touch-action: pan-y; /* voorkomt horizontale page scroll tijdens swipe */
+  touch-action: pan-y;
 }
 .carousel img{
   width:100%;
@@ -79,14 +118,14 @@ h1,h2{margin-bottom:10px}
 }
 .popup{
   background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
-  padding:20px;
+  padding:25px;
   border-radius:30px;
   max-width:85%;
-  box-shadow:0 0 20px rgba(0,0,0,0.2);
+  box-shadow:0 0 25px rgba(0,0,0,0.25);
   animation:popupIn 0.3s ease;
 }
 
-/* BUTTON */
+/* BUTTONS */
 button{
   background:linear-gradient(135deg,#60a5fa,#34d399);
   color:white;
@@ -107,6 +146,7 @@ input{
   padding:10px;
   border-radius:10px;
   border:1px solid #aaa;
+  font-size:1em;
 }
 
 /* CONFETTI */
@@ -118,7 +158,6 @@ input{
   pointer-events:none;
   z-index:2000;
 }
-
 @keyframes fall{
   to{
     transform:translateY(100vh) rotate(360deg);
@@ -126,7 +165,7 @@ input{
   }
 }
 
-/* ANIM */
+/* ANIMATIE POPUP */
 @keyframes popupIn{
   from{transform:scale(0.8);opacity:0;}
   to{transform:scale(1);opacity:1;}
@@ -136,24 +175,24 @@ input{
 
 <body>
 
-<section>
+<section class="card">
 <h1>Voor jou ❤️</h1>
 <p>Ik mis je elke dag.</p>
 </section>
 
-<section>
+<section class="card">
 <h2>Nog zo lang tot ik je weer zie:</h2>
 <p id="timer"></p>
 </section>
 
-<section>
+<section class="card">
 <h2>Waar we nu zijn</h2>
 <p>Jij bent nu in: <b>Zuid-Amerika 🌎</b></p>
 <p>Ik ben nu in: <b>Nederland 🇳🇱</b></p>
 <p>Maar in mijn hoofd ben je naast me ❤️</p>
 </section>
 
-<section>
+<section class="card">
 <h2>Onze herinneringen 📸</h2>
 <div class="carousel" id="carousel">
   <button class="arrow left" onclick="prev()">‹</button>
@@ -163,10 +202,8 @@ input{
 <p class="caption" id="caption">Onze eerste foto samen</p>
 </section>
 
-<section>
+<section class="card">
 <h2>Klik op de hartjes 💙</h2>
-
-<!-- Eerste rij -->
 <div class="hearts">
   <div class="heart" onclick="openPopup('Ik hou van je')">💙</div>
   <div class="heart" onclick="openPopup('Ik mis je')">💚</div>
@@ -174,8 +211,6 @@ input{
   <div class="heart" onclick="openPopup('Ik kan niet wachten je te zien')">🧡</div>
   <div class="heart" onclick="openPopup('Voor altijd wij')">💜</div>
 </div>
-
-<!-- Tweede rij -->
 <div class="hearts">
   <div class="heart" onclick="openPopup('Je bent geweldig')">❤️</div>
   <div class="heart" onclick="openPopup('Je maakt me blij')">💖</div>
@@ -183,7 +218,6 @@ input{
   <div class="heart" onclick="openPopup('Voor jou altijd')">💛</div>
   <div class="heart" onclick="openPopup('Mijn alles')">💜</div>
 </div>
-
 <h3>Geheime boodschap 🔒</h3>
 <p>Tip: hoe noem ik jou?</p>
 <input id="secretInput" placeholder="Raad het woord">
@@ -191,7 +225,7 @@ input{
 <button onclick="checkSecret()">Open geheim</button>
 </section>
 
-<section>
+<section class="card">
 <h2>Ons liedje 🎧</h2>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </section>
@@ -284,8 +318,8 @@ const carousel=document.getElementById("carousel");
 carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
 carousel.addEventListener("touchend",e=>{
   let endX=e.changedTouches[0].clientX;
-  if(endX < startX - 40){ next(); } // swipe links
-  if(endX > startX + 40){ prev(); } // swipe rechts
+  if(endX < startX - 40){ next(); } 
+  if(endX > startX + 40){ prev(); }
 });
 </script>
 
