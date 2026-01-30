@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voor mijn liefste ❤️</title>
+<title>❤️My Valentine❤️</title>
 
 <style>
 html, body {
@@ -147,10 +147,10 @@ button {
 <body>
 
 <header>
-<h1>Voor mijn liefste [NAAM] ❤️</h1>
+<h1>Sally, wil jij mijn Valentijn zijn? ❤️</h1>
 </header>
 
-<h2>Onze herinneringen 📸</h2>
+<h2>Een aantal van mijn favoriete herinneringen 📸</h2>
 <div class="carousel-container">
   <div class="arrow" id="prev">❮</div>
   <div class="arrow" id="next">❯</div>
@@ -171,7 +171,7 @@ button {
   </div>
 </div>
 
-<h2>Druk op de hartjes 💙</h2>
+<h2>Er zijn zó veel redenen waarom ik van jou hou. Klik op de hartjes 💙</h2>
 <div id="hartjes-container"></div>
 
 <div id="popup">
@@ -180,20 +180,20 @@ button {
 </div>
 <canvas id="confetti-canvas"></canvas>
 
-<h2>Onze playlist 🎵</h2>
+<h2>Een playlist speciaal voor jou </h2>
 <iframe style="border-radius:12px"
 src="https://open.spotify.com/embed/playlist/PLAK_HIER_JE_PLAYLIST_ID"
 width="90%" height="380" frameborder="0"
 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
-<h2>Geheime pagina 🔐</h2>
+<h2> Een speciale boodschap 🔐</h2>
 <input type="text" id="code" placeholder="Typ het geheime woord"><br>
-<small>Tip: het woord heeft alles met ons te maken ❤️</small><br>
+<small>Tip: Onze datum (dd/mm/jjjj) ❤️</small><br>
 <button onclick="checkCode()">Ontgrendel</button>
 
 <div id="geheim">
 <h3>Alleen voor jou ❤️</h3>
-<p>Hier komt jouw geheime boodschap…</p>
+<p>Jaaaaa ik ben zo blij met.... </p>
 </div>
 
 <script>
@@ -294,13 +294,13 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 };
 
 /* GEHEIM */
-const geheimWoord="liefde";
+const geheimWoord="23/01/2026";
 function checkCode(){
 const invoer=document.getElementById("code").value.toLowerCase();
 if(invoer===geheimWoord){
 document.getElementById("geheim").style.display="block";
 } else {
-alert("Fout woordje 😏");
+alert("Try again😏");
 }
 }
 </script>
