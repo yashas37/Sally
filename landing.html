@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wil je mijn Valentijn zijn?</title>
+<title>Lieve Sally, wil je mijn Valentijn zijn?</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
@@ -52,13 +52,17 @@ button:hover { background-color: #e60000; }
   animation: float 6s linear infinite;
   z-index: 0;
 }
-.heart::before, .heart::after {
+
+.heart::before,
+.heart::after {
   content: "";
   position: absolute;
-  width: 20px; height: 20px;
+  width: 20px;
+  height: 20px;
   background: red;
-  border-radius: 50%;
+  border-radius: 50%; /* maakt de bollen echt rond */
 }
+
 .heart::before { top: -10px; left: 0; }
 .heart::after { left: 10px; top: 0; }
 
