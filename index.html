@@ -4,42 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sally ❤️</title>
+
 <style>
+* { box-sizing: border-box; }
+
 body{
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color:#033;
+  color:#123;
   overflow-x:hidden;
-  background: linear-gradient(135deg,#b7e4c7,#a2d2ff);
+
+  /* Patagonië stijl – lichter */
+  background: linear-gradient(to bottom, #9ecae6, #c7f0d8);
 }
 
 /* SECTIES */
 section{
-  padding:50px 20px;
+  padding:40px 20px;
   text-align:center;
   margin:30px auto;
   max-width:420px;
   opacity:0;
   transform: translateY(20px);
   transition: all 0.6s ease;
-  border-top:1px solid rgba(0,0,0,0.05);
-  border-bottom:1px solid rgba(0,0,0,0.05);
 }
-section:nth-of-type(odd){background: linear-gradient(135deg,#d8f3dc,#b7e4c7);}
-section:nth-of-type(even){background: linear-gradient(135deg,#ade8f4,#90e0ef);}
 section.visible{
   opacity:1;
   transform: translateY(0);
 }
 
-/* CARDS - ALLEMAAL ZELFDE KLEUR, MINDER FEL */
+/* CARDS */
 .card{
-  background: rgba(255,255,255,0.6); /* vaste kaartkleur */
+  background: rgba(255,255,255,0.7);
   padding:25px;
   border-radius:25px;
   box-shadow:0 8px 25px rgba(0,0,0,0.15);
-  min-height:270px;
-  display:inline-block;
+  min-height:260px;
   width:100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -49,8 +49,8 @@ section.visible{
 }
 
 /* TITELS */
-h1{font-size:2.4em; margin-bottom:10px; letter-spacing:1px;}
-h2{font-size:1.8em; color:#034; margin-bottom:10px;}
+h1{font-size:2.4em; margin-bottom:10px; letter-spacing:1px; color:#1b4965;}
+h2{font-size:1.7em; color:#1b4965; margin-bottom:10px;}
 p{font-size:1.1em; line-height:1.5;}
 
 /* CAROUSEL */
@@ -73,7 +73,7 @@ p{font-size:1.1em; line-height:1.5;}
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:black;
+  background:#1b4965;
   color:white;
   border:none;
   font-size:25px;
@@ -82,8 +82,8 @@ p{font-size:1.1em; line-height:1.5;}
   border-radius:50%;
   z-index:10;
 }
-.left{left:-40px;}
-.right{right:-40px;}
+.left{left:-35px;}
+.right{right:-35px;}
 
 /* HARTJES */
 .hearts{
@@ -111,7 +111,7 @@ p{font-size:1.1em; line-height:1.5;}
   z-index:1000;
 }
 .popup{
-  background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
+  background:linear-gradient(to bottom,#c7f0d8,#e0f2fe);
   padding:25px;
   border-radius:30px;
   max-width:85%;
@@ -121,7 +121,7 @@ p{font-size:1.1em; line-height:1.5;}
 
 /* BUTTONS */
 button{
-  background:linear-gradient(135deg,#60a5fa,#34d399);
+  background:#1b4965;
   color:white;
   border:none;
   padding:12px 25px;
@@ -159,14 +159,12 @@ input{
   from{transform:scale(0.8);opacity:0;}
   to{transform:scale(1);opacity:1;}
 }
-* {
-  box-sizing: border-box;
-}
 
+/* MOBIEL FIX */
 @media (max-width: 600px) {
   .left { left: 5px; }
   .right { right: 5px; }
-} 
+}
 </style>
 </head>
 
@@ -174,16 +172,16 @@ input{
 
 <section class="card">
 <h1>Lieve Sally, wil jij mijn Valentijn zijn?</h1>
-<p><❤️/p>
+<p>❤️</p>
 </section>
 
 <section class="card">
-<h2>Aantal dagen totdat ik je wee</h2>
+<h2>Aantal dagen totdat ik je weer zie</h2>
 <p id="timer"></p>
 </section>
 
 <section class="card">
-<h2> Een paar van mijn favoriete herinneringen in beeld 📸</h2>
+<h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div class="carousel" id="carousel">
   <button class="arrow left" onclick="prev()">‹</button>
   <img id="slide" src="fotos/foto1.jpg">
@@ -193,7 +191,7 @@ input{
 </section>
 
 <section class="card">
-<h2>A few things I love about you </h2>
+<h2>A few things I love about you</h2>
 <div class="hearts">
   <div class="heart" onclick="openPopup('Ik hou van je')">💙</div>
   <div class="heart" onclick="openPopup('Ik mis je')">💚</div>
@@ -211,7 +209,7 @@ input{
 </section>
 
 <section class="card">
-<h2> Een geheime boodschap </h2>
+<h2>Een geheime boodschap</h2>
 <p>Tip: In welke stad vond onze eerste date plaats?</p>
 <input id="secretInput" placeholder="Raad het woord">
 <br><br>
@@ -220,19 +218,19 @@ input{
 
 <section class="card">
 <h2>Ons liedje 🎧</h2>
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </section>
 
 <!-- POPUPS -->
 <div class="popup-bg" id="popupBg" onclick="closePopup()">
-<div class="popup" id="popupText"></div>
+  <div class="popup" id="popupText"></div>
 </div>
 
 <div class="popup-bg" id="secretPopup" onclick="closeSecret()">
-<div class="popup" id="secretContent">
-<h2>❤️ Geheime boodschap ❤️</h2>
-<p>Ben zo blij met jou .</p>
-</div>
+  <div class="popup" id="secretContent">
+    <h2>❤️ Geheime boodschap ❤️</h2>
+    <p>Ben zo blij met jou.</p>
+  </div>
 </div>
 
 <script>
@@ -316,7 +314,7 @@ img.style.opacity=1;
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
 
-// SWIPE VOOR MOBIEL
+/* SWIPE */
 let startX=0;
 const carousel=document.getElementById("carousel");
 carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
@@ -329,4 +327,3 @@ carousel.addEventListener("touchend",e=>{
 
 </body>
 </html>
-
