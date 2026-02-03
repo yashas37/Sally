@@ -17,21 +17,37 @@ body {
   align-items: center;
   text-align: center;
 
-  /* Hartjes achtergrond patroon */
-  background-color: #ffe6e6;
-  background-image: radial-gradient(red 10%, transparent 11%),
-                    radial-gradient(red 10%, transparent 11%);
-  background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
-
+  /* Patagonië-achtige achtergrond */
+  background: linear-gradient(to bottom, #4b79a1, #283e51); /* blauwe berglucht tinten */
+  position: relative;
+  overflow: hidden;
   font-family: 'Arial', sans-serif;
+}
+
+/* Subtiele glans over de achtergrond */
+.shimmer {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+  animation: shimmer 5s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+  100% { transform: translateX(50%) translateY(50%) rotate(360deg); }
 }
 
 h1 {
   font-family: 'Pacifico', cursive;
   font-size: 3em;
-  color: #ff4d4d;
-  text-shadow: 2px 2px 5px #00000050;
+  color: #f0e68c; /* zacht goudgeel voor contrast */
+  text-shadow: 2px 2px 5px #00000080;
+  z-index: 2;
   margin: 0;
 }
 
@@ -39,20 +55,39 @@ button {
   margin-top: 30px;
   padding: 15px 40px;
   font-size: 1.5em;
-  background-color: #ff4d4d;
-  color: white;
+  background-color: #f0e68c; /* match kleur h1 */
+  color: #283e51; /* donkerder voor stoer contrast */
   border: none;
   border-radius: 15px;
   cursor: pointer;
   transition: 0.3s;
+  z-index: 2;
 }
 
 button:hover {
-  background-color: #e60000;
+  background-color: #d4c16d;
 }
+
+/* Subtiele hartjes achtergrond in stoere kleuren */
+body::before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  background-image: radial-gradient(rgba(255,255,255,0.1) 10%, transparent 11%),
+                    radial-gradient(rgba(255,255,255,0.1) 10%, transparent 11%);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  z-index:0;
+}
+
 </style>
 </head>
 <body>
+
+<div class="shimmer"></div>
 
 <h1>Wil je mijn Valentijn zijn?</h1>
 <button onclick="window.location.href='https://yashas37.github.io/Sally-My-Valentine/'">
