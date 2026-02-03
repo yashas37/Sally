@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lieve Sally, wil je mijn Valentijn zijn?</title>
+<title>Wil je mijn Valentijn zijn?</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
@@ -45,8 +45,8 @@ button:hover { background-color: #e60000; }
 /* Hartjes */
 .heart {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 16px;
   background: red;
   transform: rotate(45deg);
   animation: float 6s linear infinite;
@@ -57,14 +57,14 @@ button:hover { background-color: #e60000; }
 .heart::after {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background: red;
-  border-radius: 50%; /* maakt de bollen echt rond */
+  border-radius: 50%;
 }
 
-.heart::before { top: -10px; left: 0; }
-.heart::after { left: 10px; top: 0; }
+.heart::before { top: -8px; left: 0; }
+.heart::after { left: 8px; top: 0; }
 
 @keyframes float {
   0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
@@ -72,15 +72,16 @@ button:hover { background-color: #e60000; }
   100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
 }
 
-/* Geanimeerde katjes en pinguïns */
+/* Geanimeerde dieren */
 .animal {
   position: absolute;
   bottom: 20px;
   width: 80px;
+  height: 80px;
   animation: walk 10s linear infinite;
 }
 
-.animal.penguin { width: 60px; bottom: 10px; }
+.animal.penguin { width: 60px; height: 60px; bottom: 10px; }
 
 @keyframes walk {
   0% { left: -100px; transform: scaleX(1); }
@@ -89,34 +90,40 @@ button:hover { background-color: #e60000; }
   100% { left: 110vw; transform: scaleX(-1); }
 }
 
-/* Cartoon style */
-.cat, .penguin {
-  display: inline-block;
+/* Katjes (dik en grappig) */
+.cat {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  background: #f4c542;
+  border-radius: 50%; /* dik rond lijf */
   position: relative;
 }
 
-/* Katje */
-.cat {
-  background: #f4c542;
-}
-.cat::before { content:""; position:absolute; width:20%; height:20%; background:#f4c542; top:-10%; left:0; border-radius:50%; } /* oor links */
-.cat::after { content:""; position:absolute; width:20%; height:20%; background:#f4c542; top:-10%; right:0; border-radius:50%; } /* oor rechts */
-
-/* Pinguïn */
+/* Pinguïns (dik en grappig) */
 .penguin {
+  width: 100%;
+  height: 100%;
   background: #000;
+  border-radius: 50%; /* dik rond lijf */
+  position: relative;
 }
-.penguin::before { content:""; position:absolute; width:60%; height:60%; background:#fff; top:20%; left:20%; border-radius:50%; } /* buik */
+.penguin::before {
+  content:"";
+  position:absolute;
+  width:60%;
+  height:60%;
+  background:#fff; /* buik */
+  top:20%;
+  left:20%;
+  border-radius:50%;
+}
 
 </style>
 </head>
 <body>
 
 <h1>Wil je mijn Valentijn zijn?</h1>
-<button onclick="window.location.href='https://yashas37.github.io/Sally-My-Valentine/'">Ja!</button>
+<button onclick="window.location.href='https://yashas37.github.io/Sally-My-Valentine/'">Ja! 😻🐧</button>
 
 <!-- Hartjes -->
 <script>
@@ -125,12 +132,12 @@ for(let i=0;i<20;i++){
   heart.classList.add('heart');
   heart.style.left = Math.random()*100 + 'vw';
   heart.style.animationDuration = 4 + Math.random()*4 + 's';
-  heart.style.width = heart.style.height = 20 + Math.random()*20 + 'px';
+  heart.style.width = heart.style.height = 16 + Math.random()*8 + 'px';
   document.body.appendChild(heart);
 }
 </script>
 
-<!-- Katjes en pinguïns -->
+<!-- Dikke katten en pinguïns -->
 <div class="animal"><div class="cat"></div></div>
 <div class="animal" style="animation-delay:2s;"><div class="cat"></div></div>
 <div class="animal penguin" style="animation-delay:4s;"><div class="penguin"></div></div>
