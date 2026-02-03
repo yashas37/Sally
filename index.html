@@ -42,7 +42,7 @@ section.visible{
   width:100%;
 }
 
-/* INTRO CARD (welkomsttekst) */
+/* INTRO CARD (welkomstekst) */
 .intro{
   text-align:left;
 }
@@ -71,7 +71,7 @@ p{font-size:1.1em; line-height:1.5;}
 }
 .carousel img {
   width: 100%;
-  display: none;
+  display: none; /* behalve eerste img, die krijgt display:block in HTML */
 }
 
 /* pijltjes */
@@ -89,6 +89,7 @@ p{font-size:1.1em; line-height:1.5;}
 }
 .left{left:5px;}
 .right{right:5px;}
+.arrow:hover{background:#f0e68c;}
 
 /* dots */
 .carousel-dots {
@@ -185,18 +186,15 @@ input{
   </p>
 </section>
 
-<section class="card">
-<h2>Aantal dagen totdat ik je weer zie</h2>
-<p id="timer"></p>
-</section>
-
+<!-- CAROUSEL MET CAPTIONS -->
 <section class="card">
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div id="carousel" class="carousel">
   <button class="arrow left">‹</button>
-  <img src="foto1.jpeg" data-caption="Onze eerste foto samen">
+  <img src="foto1.jpeg" data-caption="Onze eerste foto samen" style="display:block;">
   <img src="foto2.jpeg" data-caption="Mijn favoriete herinnering met jou">
   <img src="foto3.jpeg" data-caption="Tot we weer samen zijn">
+  <!-- extra foto's kun je hier toevoegen -->
   <button class="arrow right">›</button>
   <p class="carousel-caption"></p>
 </div>
@@ -221,6 +219,11 @@ input{
 <button onclick="checkSecret()">Open geheim</button>
 </section>
 
+  <section class="card">
+<h2>Aantal dagen totdat ik je weer zie</h2>
+<p id="timer"></p>
+</section>
+  
 <!-- POPUPS -->
 <div class="popup-bg" id="popupBg" onclick="closePopup()">
   <div class="popup" id="popupText"></div>
@@ -234,14 +237,18 @@ input{
   </div>
 </div>
 
+
 <script>
+/* SCROLL FADE-IN */
 const sections=document.querySelectorAll("section");
 function reveal(){sections.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight-50)s.classList.add("visible");});}
 window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
 
+/* COUNTDOWN */
 const target=new Date("2026-02-14");
 setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";},1000);
 
+/* POPUP */
 function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
 function closePopup(){popupBg.style.display="none";}
 function checkSecret(){
@@ -250,26 +257,37 @@ else alert("Bijna… 💭");
 }
 function closeSecret(){secretPopup.style.display="none";}
 
-/* CAROUSEL */
+/* CAROUSEL MET PIJLTJES EN CAPTION */
 function Carousel(id){
-const c=document.getElementById(id);
-const imgs=c.querySelectorAll("img");
-const dots=c.parentElement.querySelector(".carousel-dots");
-const cap=c.querySelector(".carousel-caption");
-let i=0;
-imgs.forEach((_,n)=>{let d=document.createElement("span");if(n===0)d.classList.add("active");dots.appendChild(d);});
-const ds=dots.querySelectorAll("span");
-function show(n){
-imgs.forEach(im=>im.style.display="none");
-imgs[n].style.display="block";
-cap.innerText=imgs[n].dataset.caption||"";
-ds.forEach(d=>d.classList.remove("active"));
-ds[n].classList.add("active");
+  const c=document.getElementById(id);
+  const imgs=c.querySelectorAll("img");
+  const dots=c.parentElement.querySelector(".carousel-dots");
+  const cap=c.querySelector(".carousel-caption");
+  const left=c.querySelector(".left");
+  const right=c.querySelector(".right");
+  let i=0;
+
+  // setup dots
+  imgs.forEach((_,n)=>{
+    const d=document.createElement("span");
+    if(n===0)d.classList.add("active");
+    dots.appendChild(d);
+  });
+  const ds=dots.querySelectorAll("span");
+
+  function show(n){
+    imgs.forEach(im=>im.style.display='none');
+    imgs[n].style.display='block';
+    cap.innerText=imgs[n].dataset.caption||"";
+    ds.forEach(d=>d.classList.remove("active"));
+    ds[n].classList.add("active");
+  }
+
+  show(i);
+  left.onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
+  right.onclick=()=>{i=(i+1)%imgs.length;show(i);}
 }
-show(0);
-c.querySelector(".left").onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
-c.querySelector(".right").onclick=()=>{i=(i+1)%imgs.length;show(i);}
-}
+
 window.onload=()=>Carousel("carousel");
 </script>
 
