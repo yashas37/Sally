@@ -6,21 +6,24 @@
 <title>Sally ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
+/* ACHTERGROND */
 body{
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color:#123;
+  color:#033;
   overflow-x:hidden;
 
-  /* Blauwere Patagonië stijl */
-  background: linear-gradient(to bottom, #7fb8da, #cfefff);
+  /* lichtere Patagonië-blauw */
+  background: linear-gradient(to bottom, #6fa3c8, #4b79a1);
 }
 
 /* SECTIES */
 section{
-  padding:40px 20px;
+  padding:50px 20px;
   text-align:center;
   margin:30px auto;
   max-width:420px;
@@ -35,11 +38,12 @@ section.visible{
 
 /* CARDS */
 .card{
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.7);
   padding:25px;
   border-radius:25px;
   box-shadow:0 8px 25px rgba(0,0,0,0.15);
-  min-height:260px;
+  min-height:270px;
+  display:inline-block;
   width:100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -49,8 +53,8 @@ section.visible{
 }
 
 /* TITELS */
-h1{font-size:2.4em; margin-bottom:10px; letter-spacing:1px; color:#1b4965;}
-h2{font-size:1.7em; color:#1b4965; margin-bottom:10px;}
+h1{font-size:2.4em; margin-bottom:10px; letter-spacing:1px; color:#f0e68c;}
+h2{font-size:1.8em; color:#034; margin-bottom:10px;}
 p{font-size:1.1em; line-height:1.5;}
 
 /* CAROUSEL */
@@ -73,7 +77,7 @@ p{font-size:1.1em; line-height:1.5;}
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:#1b4965;
+  background:#283e51;
   color:white;
   border:none;
   font-size:25px;
@@ -82,8 +86,8 @@ p{font-size:1.1em; line-height:1.5;}
   border-radius:50%;
   z-index:10;
 }
-.left{left:-35px;}
-.right{right:-35px;}
+.left{left:5px;}
+.right{right:5px;}
 
 /* HARTJES */
 .hearts{
@@ -111,18 +115,17 @@ p{font-size:1.1em; line-height:1.5;}
   z-index:1000;
 }
 .popup{
-  background:linear-gradient(to bottom,#d6f2ff,#eefbff);
+  background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
   padding:25px;
   border-radius:30px;
   max-width:85%;
   box-shadow:0 0 25px rgba(0,0,0,0.25);
-  animation:popupIn 0.3s ease;
 }
 
 /* BUTTONS */
 button{
-  background:#1b4965;
-  color:white;
+  background:#f0e68c;
+  color:#283e51;
   border:none;
   padding:12px 25px;
   border-radius:25px;
@@ -154,16 +157,6 @@ input{
 }
 @keyframes fall{
   to{transform:translateY(100vh) rotate(360deg); opacity:0;}
-}
-@keyframes popupIn{
-  from{transform:scale(0.8);opacity:0;}
-  to{transform:scale(1);opacity:1;}
-}
-
-/* MOBIEL FIX */
-@media (max-width: 600px) {
-  .left { left: 5px; }
-  .right { right: 5px; }
 }
 </style>
 </head>
@@ -199,13 +192,6 @@ input{
   <div class="heart" onclick="openPopup('Ik kan niet wachten je te zien')">🧡</div>
   <div class="heart" onclick="openPopup('Voor altijd wij')">💜</div>
 </div>
-<div class="hearts">
-  <div class="heart" onclick="openPopup('Je bent geweldig')">❤️</div>
-  <div class="heart" onclick="openPopup('Je maakt me blij')">💖</div>
-  <div class="heart" onclick="openPopup('Altijd samen')">💚</div>
-  <div class="heart" onclick="openPopup('Voor jou altijd')">💛</div>
-  <div class="heart" onclick="openPopup('Mijn alles')">💜</div>
-</div>
 </section>
 
 <section class="card">
@@ -218,22 +204,23 @@ input{
 
 <section class="card">
 <h2>Ons liedje 🎧</h2>
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </section>
 
 <!-- POPUPS -->
 <div class="popup-bg" id="popupBg" onclick="closePopup()">
-  <div class="popup" id="popupText"></div>
+<div class="popup" id="popupText"></div>
 </div>
 
 <div class="popup-bg" id="secretPopup" onclick="closeSecret()">
-  <div class="popup" id="secretContent">
-    <h2>❤️ Geheime boodschap ❤️</h2>
-    <p>Ben zo blij met jou.</p>
-  </div>
+<div class="popup" id="secretContent">
+<h2>❤️ Geheime boodschap ❤️</h2>
+<p>Ben zo blij met jou.</p>
+</div>
 </div>
 
 <script>
+/* SCROLL */
 const sections = document.querySelectorAll('section');
 function revealSections(){
   sections.forEach(sec=>{
@@ -246,6 +233,7 @@ function revealSections(){
 window.addEventListener('scroll',revealSections);
 window.addEventListener('load',revealSections);
 
+/* COUNTDOWN */
 const target = new Date("2026-02-14");
 setInterval(()=>{
 const now = new Date();
@@ -254,6 +242,7 @@ const days = Math.floor(diff/1000/60/60/24);
 document.getElementById("timer").innerText = days+" dagen ❤️";
 },1000);
 
+/* POPUP */
 function openPopup(text){
 document.getElementById("popupText").innerText=text;
 document.getElementById("popupBg").style.display="flex";
@@ -262,34 +251,21 @@ function closePopup(){
 document.getElementById("popupBg").style.display="none";
 }
 
-let confettiInterval;
-function startConfetti(){
-confettiInterval=setInterval(()=>{
-const c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.innerText="❤️";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
-},200);
-}
-function stopConfetti(){clearInterval(confettiInterval);}
-
+/* SECRET */
 function checkSecret(){
 const answer = "liefje";  
 const input = document.getElementById("secretInput").value.toLowerCase();
 if(input === answer){
 document.getElementById("secretPopup").style.display="flex";
-startConfetti();
 }else{
 alert("Bijna... probeer nog eens 💭");
 }
 }
 function closeSecret(){
 document.getElementById("secretPopup").style.display="none";
-stopConfetti();
 }
 
+/* CAROUSEL */
 const fotos=[
   {src:"fotos/foto1.jpg", text:"Onze eerste foto samen"},
   {src:"fotos/foto2.jpg", text:"Mijn favoriete herinnering met jou"},
@@ -307,15 +283,6 @@ img.style.opacity=1;
 }
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
-
-let startX=0;
-const carousel=document.getElementById("carousel");
-carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
-carousel.addEventListener("touchend",e=>{
-  let endX=e.changedTouches[0].clientX;
-  if(endX < startX - 40){ next(); } 
-  if(endX > startX + 40){ prev(); }
-});
 </script>
 
 </body>
