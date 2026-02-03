@@ -219,11 +219,17 @@ input{
 
   
 <section class="card">
-<h2>Een geheime boodschap</h2>
-<input id="secretInput" placeholder="Raad het woord">
-<br><br>
-<button onclick="checkSecret()">Open geheim</button>
+  <h2>Een geheime boodschap</h2>
+
+  <input id="secretInput" placeholder="Raad het woord">
+  <p style="font-size:0.9em; color:#034; margin-top:8px;">
+     Op deze dag vroeg jij mij verkering (dd/mm/jjjj)
+  </p>
+
+  <br>
+  <button onclick="checkSecret()">Open geheim</button>
 </section>
+
 
   
 <section class="card">
@@ -258,10 +264,16 @@ input{
   </p>
 </section>
 
-  <section class="card">
-<h2>Aantal dagen totdat ik je weer zie</h2>
-<p id="timer"></p>
+<section class="card">
+  <h2>Aantal dagen totdat we elkaar weer zien</h2>
+
+  <p id="timer"></p>
+
+  <p style="font-size:0.95em; color:#034; font-style:italic;">
+    Geniet van jullie vakantie ❤️
+  </p>
 </section>
+
   
 <!-- POPUPS -->
 <div class="popup-bg" id="popupBg" onclick="closePopup()">
