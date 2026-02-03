@@ -13,8 +13,6 @@ body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:#033;
   overflow-x:hidden;
-
-  /* Patagonië-blauwe gradient */
   background: linear-gradient(to bottom, #4b79a1, #283e51);
 }
 
@@ -55,36 +53,19 @@ h2{font-size:1.8em; color:#034; margin-bottom:10px;}
 p{font-size:1.1em; line-height:1.5;}
 
 /* CAROUSEL */
-.carousel{
-  position:relative;
-  max-width:320px;
-  margin:auto;
-  touch-action: pan-y;
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 20px;
 }
-.carousel img{
-  width:100%;
-  border-radius:20px;
-  transition:opacity 0.5s ease;
+
+.carousel img {
+  width: 100%;
+  display: block;
 }
-.caption{
-  margin-top:8px;
-  font-style:italic;
-}
-.arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:#283e51;
-  color:white;
-  border:none;
-  font-size:25px;
-  padding:5px 10px;
-  cursor:pointer;
-  border-radius:50%;
-  z-index:10;
-}
-.left{left:5px;}
-.right{right:5px;}
 
 /* HARTJES */
 .hearts{
@@ -161,7 +142,7 @@ input{
 <body>
 
 <section class="card">
-<h1> Hierbij een site, speciaal voor jou. Mijn valentijn! </h1>
+<h1>Lieve Sally, wil jij mijn Valentijn zijn?</h1>
 <p>❤️</p>
 </section>
 
@@ -172,12 +153,11 @@ input{
 
 <section class="card">
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
-<div class="carousel" id="carousel">
-  <button class="arrow left" onclick="prev()">‹</button>
-  <img id="slide" src="foto1.jpeg" loading="lazy">
-  <button class="arrow right" onclick="next()">›</button>
+<div id="carousel" class="carousel">
+  <img src="foto1.jpeg" loading="lazy" alt="Onze eerste foto samen">
+  <img src="foto2.jpeg" loading="lazy" alt="Mijn favoriete herinnering met jou">
+  <img src="foto3.jpeg" loading="lazy" alt="Tot we weer samen zijn">
 </div>
-<p class="caption" id="caption">Onze eerste foto samen</p>
 </section>
 
 <section class="card">
@@ -217,7 +197,7 @@ input{
 </div>
 
 <script>
-/* SCROLL */
+/* SCROLL FADE-IN */
 const sections = document.querySelectorAll('section');
 function revealSections(){
   sections.forEach(sec=>{
@@ -262,24 +242,38 @@ function closeSecret(){
 document.getElementById("secretPopup").style.display="none";
 }
 
-/* CAROUSEL */
-const fotos=[
-  {src:"foto1.jpg", text:"Een dagje Utrecht. Met onder andere een bezoek aan de Botanische Tuin: toen er een vlinder op jouw schouder kwam zitten. En denk ook nog regelmatig aan onze wandeling met pauze op het bankje"},
-  {src:"foto2.jpg", text:"Toen we in Rotterdam waren en het Zomercarnaval plaatsvond. Het was een heel warme dag, zelfs voelbaar in de bioscoop!"},
-  {src:"foto3.jpg", text:"Het LEGO-museum in de Mall"}
-];
-let i=0;
-function show(){
-const img=document.getElementById("slide");
-img.style.opacity=0;
-setTimeout(()=>{
-img.src=fotos[i].src;
-document.getElementById("caption").innerText=fotos[i].text;
-img.style.opacity=1;
-},100); // iets sneller fade
+/* SWIPE CAROUSEL */
+const carousel = document.getElementById("carousel");
+const images = carousel.querySelectorAll("img");
+let current = 0;
+
+let startX = 0;
+carousel.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+carousel.addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+  if (endX < startX - 40) { next(); }
+  if (endX > startX + 40) { prev(); }
+});
+
+function showImage(index) {
+  images.forEach((img, i) => img.style.display = i === index ? "block" : "none");
 }
-function next(){i=(i+1)%fotos.length;show();}
-function prev(){i=(i-1+fotos.length)%fotos.length;show();}
+
+function next() {
+  current = (current + 1) % images.length;
+  showImage(current);
+}
+
+function prev() {
+  current = (current - 1 + images.length) % images.length;
+  showImage(current);
+}
+
+// start met eerste afbeelding
+showImage(current);
 </script>
 
 </body>
