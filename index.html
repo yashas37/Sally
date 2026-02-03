@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sally ❤️</title>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -39,15 +40,23 @@ section.visible{
   min-height:270px;
   display:inline-block;
   width:100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.card:hover{
-  transform: scale(1.02);
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+/* INTRO CARD (welkomsttekst) */
+.intro{
+  text-align:left;
+}
+.intro p{
+  font-size:0.95em;
+  line-height:1.6;
+  color:#033;
+}
+.intro p:first-child{
+  font-weight:bold;
+  font-size:1.05em;
 }
 
 /* TITELS */
-h1{font-size:2.4em; margin-bottom:10px; letter-spacing:1px; color:#f0e68c;}
 h2{font-size:1.8em; color:#034; margin-bottom:10px;}
 p{font-size:1.1em; line-height:1.5;}
 
@@ -77,13 +86,11 @@ p{font-size:1.1em; line-height:1.5;}
   padding:5px 12px;
   cursor:pointer;
   border-radius:50%;
-  z-index:10;
 }
 .left{left:5px;}
 .right{right:5px;}
-.arrow:hover{background:#f0e68c;}
 
-/* carousel-dots */
+/* dots */
 .carousel-dots {
   text-align: center;
   margin-top: 10px;
@@ -95,13 +102,12 @@ p{font-size:1.1em; line-height:1.5;}
   background:#ccc;
   border-radius:50%;
   margin:0 5px;
-  transition: background 0.3s;
 }
 .carousel-dots span.active{
   background:#f0e68c;
 }
 
-/* carousel caption */
+/* caption */
 .carousel-caption{
   margin-top:10px;
   font-style:italic;
@@ -114,14 +120,11 @@ p{font-size:1.1em; line-height:1.5;}
   grid-template-columns: repeat(5,60px);
   justify-content:center;
   gap:8px;
-  margin-bottom:15px;
 }
 .heart{
   font-size:40px;
   cursor:pointer;
-  transition:transform 0.2s;
 }
-.heart:hover{transform:scale(1.2);}
 
 /* POPUPS */
 .popup-bg{
@@ -138,8 +141,6 @@ p{font-size:1.1em; line-height:1.5;}
   padding:25px;
   border-radius:30px;
   max-width:85%;
-  box-shadow:0 0 25px rgba(0,0,0,0.25);
-  position: relative;
 }
 
 /* BUTTONS */
@@ -151,11 +152,6 @@ button{
   border-radius:25px;
   font-size:16px;
   cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-}
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* INPUT */
@@ -165,34 +161,28 @@ input{
   border:1px solid #aaa;
   font-size:1em;
 }
-
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  top:-10px;
-  font-size:24px;
-  animation:fall 3s linear forwards;
-  pointer-events:none;
-  z-index:2000;
-}
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg); opacity:0;}
-}
 </style>
 </head>
+
 <body>
 
-<section class="card">
-<h1> Hoi knappe wereldreizigster!
+<!-- INTRO -->
+<section class="card intro">
+  <p>Hoi knappe wereldreizigster!</p>
 
-Omdat dit onze eerste Valentijnsdag samen is, heb ik iets leuks voor je gemaakt: deze site.
-Een kleine digitale knuffel, speciaal voor jou.
+  <p>
+    Omdat dit onze eerste Valentijnsdag samen is, heb ik iets leuks voor je gemaakt: deze site.
+    Een kleine digitale knuffel, speciaal voor jou.
+  </p>
 
-Heel fijne Valentijnsdag lieverd en geniet van jouw reis! Ik kan niet wachten om al jouw mooie reisverhalen te horen ❤️
+  <p>
+    Heel fijne Valentijnsdag lieverd en geniet van jouw reis! Ik kan niet wachten om al jouw mooie reisverhalen te horen ❤️
+  </p>
 
-Ik hou van jou en dikke kus,
-Yasmine </h1>
-<p></p>
+  <p>
+    Ik hou van jou en dikke kus,<br>
+    Yasmine
+  </p>
 </section>
 
 <section class="card">
@@ -200,15 +190,13 @@ Yasmine </h1>
 <p id="timer"></p>
 </section>
 
-<!-- CAROUSEL MET CAPTIONS -->
 <section class="card">
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div id="carousel" class="carousel">
   <button class="arrow left">‹</button>
-  <img src="foto1.jpg" data-caption="Onze eerste foto samen" alt="Onze eerste foto samen">
-  <img src="foto2.jpg" data-caption="Mijn favoriete herinnering met jou" alt="Mijn favoriete herinnering met jou">
-  <img src="foto3.jpg" data-caption="Tot we weer samen zijn" alt="Tot we weer samen zijn">
-  <!-- Extra foto's kunnen hier toegevoegd worden -->
+  <img src="foto1.jpeg" data-caption="Onze eerste foto samen">
+  <img src="foto2.jpeg" data-caption="Mijn favoriete herinnering met jou">
+  <img src="foto3.jpeg" data-caption="Tot we weer samen zijn">
   <button class="arrow right">›</button>
   <p class="carousel-caption"></p>
 </div>
@@ -228,15 +216,9 @@ Yasmine </h1>
 
 <section class="card">
 <h2>Een geheime boodschap</h2>
-<p>Tip: In welke stad vond onze eerste date plaats?</p>
 <input id="secretInput" placeholder="Raad het woord">
 <br><br>
 <button onclick="checkSecret()">Open geheim</button>
-</section>
-
-<section class="card">
-<h2>Ons liedje 🎧</h2>
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </section>
 
 <!-- POPUPS -->
@@ -245,105 +227,50 @@ Yasmine </h1>
 </div>
 
 <div class="popup-bg" id="secretPopup" onclick="closeSecret()">
-  <div class="popup" id="secretContent">
+  <div class="popup">
     <h2>❤️ Geheime boodschap ❤️</h2>
     <p>Ben zo blij met jou.</p>
-    <img src="geheimefoto.jpeg" alt="Voor mijn lief" style="width:100%; max-width:300px; border-radius:20px; margin-top:10px;">
-    <div class="carousel-dots"></div>
-    <button class="arrow left">‹</button>
-    <button class="arrow right">›</button>
-    <p class="carousel-caption"></p>
+    <img src="geheimefoto.jpeg" style="width:100%;border-radius:15px;">
   </div>
 </div>
 
 <script>
-/* SCROLL FADE-IN */
-const sections = document.querySelectorAll('section');
-function revealSections(){
-  sections.forEach(sec=>{
-    const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-      sec.classList.add('visible');
-    }
-  });
-}
-window.addEventListener('scroll',revealSections);
-window.addEventListener('load',revealSections);
+const sections=document.querySelectorAll("section");
+function reveal(){sections.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight-50)s.classList.add("visible");});}
+window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
 
-/* COUNTDOWN */
-const target = new Date("2026-02-14");
-setInterval(()=>{
-const now = new Date();
-const diff = target-now;
-const days = Math.floor(diff/1000/60/60/24);
-document.getElementById("timer").innerText = days+" dagen ❤️";
-},1000);
+const target=new Date("2026-02-14");
+setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";},1000);
 
-/* POPUP */
-function openPopup(text){
-  document.getElementById("popupText").innerText=text;
-  document.getElementById("popupBg").style.display="flex";
-}
-function closePopup(){
-  document.getElementById("popupBg").style.display="none";
-}
-
-/* SECRET */
+function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
+function closePopup(){popupBg.style.display="none";}
 function checkSecret(){
-  const answer = "liefje";  
-  const input = document.getElementById("secretInput").value.toLowerCase();
-  if(input === answer){
-    document.getElementById("secretPopup").style.display="flex";
-  } else{
-    alert("Bijna... probeer nog eens 💭");
-  }
+if(secretInput.value.toLowerCase()==="liefje"){secretPopup.style.display="flex";}
+else alert("Bijna… 💭");
 }
-function closeSecret(){
-  document.getElementById("secretPopup").style.display="none";
+function closeSecret(){secretPopup.style.display="none";}
+
+/* CAROUSEL */
+function Carousel(id){
+const c=document.getElementById(id);
+const imgs=c.querySelectorAll("img");
+const dots=c.parentElement.querySelector(".carousel-dots");
+const cap=c.querySelector(".carousel-caption");
+let i=0;
+imgs.forEach((_,n)=>{let d=document.createElement("span");if(n===0)d.classList.add("active");dots.appendChild(d);});
+const ds=dots.querySelectorAll("span");
+function show(n){
+imgs.forEach(im=>im.style.display="none");
+imgs[n].style.display="block";
+cap.innerText=imgs[n].dataset.caption||"";
+ds.forEach(d=>d.classList.remove("active"));
+ds[n].classList.add("active");
 }
-
-/* CAROUSEL MET CAPTIONS EN PIJLTJES */
-function CarouselWithCaptions(containerId){
-  const container = document.getElementById(containerId);
-  const images = container.querySelectorAll('img');
-  const dotsContainer = container.nextElementSibling || container.querySelector('.carousel-dots');
-  const leftBtn = container.querySelector('.arrow.left');
-  const rightBtn = container.querySelector('.arrow.right');
-  const captionEl = container.querySelector('.carousel-caption');
-  let current = 0;
-
-  // setup dots
-  images.forEach((_,i)=>{
-    const dot=document.createElement('span');
-    if(i===0) dot.classList.add('active');
-    dotsContainer.appendChild(dot);
-  });
-  const dots = dotsContainer.querySelectorAll('span');
-
-  function show(index){
-    images.forEach((img,i)=> img.style.display='none');
-    images[index].style.display='block';
-    captionEl.innerText = images[index].dataset.caption || '';
-    dots.forEach((dot,i)=> dot.classList.toggle('active', i===index));
-  }
-
-  show(current);
-
-  leftBtn.addEventListener('click', ()=>{
-    current = (current-1+images.length)%images.length;
-    show(current);
-  });
-  rightBtn.addEventListener('click', ()=>{
-    current = (current+1)%images.length;
-    show(current);
-  });
+show(0);
+c.querySelector(".left").onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
+c.querySelector(".right").onclick=()=>{i=(i+1)%imgs.length;show(i);}
 }
-
-// initialisatie
-window.addEventListener('load', ()=>{
-  CarouselWithCaptions('carousel');
-  CarouselWithCaptions('secretContent');
-});
+window.onload=()=>Carousel("carousel");
 </script>
 
 </body>
