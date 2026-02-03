@@ -6,19 +6,16 @@
 <title>Sally ❤️</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-/* ACHTERGROND */
 body{
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:#033;
   overflow-x:hidden;
 
-  /* lichtere Patagonië-blauw */
-  background: linear-gradient(to bottom, #6fa3c8, #4b79a1);
+  /* Patagonië-blauwe gradient */
+  background: linear-gradient(to bottom, #4b79a1, #283e51);
 }
 
 /* SECTIES */
@@ -177,7 +174,7 @@ input{
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div class="carousel" id="carousel">
   <button class="arrow left" onclick="prev()">‹</button>
-  <img id="slide" src="fotos/foto1.jpg">
+  <img id="slide" src="foto1.jpg">
   <button class="arrow right" onclick="next()">›</button>
 </div>
 <p class="caption" id="caption">Onze eerste foto samen</p>
@@ -267,9 +264,9 @@ document.getElementById("secretPopup").style.display="none";
 
 /* CAROUSEL */
 const fotos=[
-  {src:"fotos/foto1.jpg", text:"Onze eerste foto samen"},
-  {src:"fotos/foto2.jpg", text:"Mijn favoriete herinnering met jou"},
-  {src:"fotos/foto3.jpg", text:"Tot we weer samen zijn"}
+  {src:"foto1.jpg", text:"Onze eerste foto samen"},
+  {src:"foto2.jpg", text:"Mijn favoriete herinnering met jou"},
+  {src:"foto3.jpg", text:"Tot we weer samen zijn"}
 ];
 let i=0;
 function show(){
