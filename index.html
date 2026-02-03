@@ -14,8 +14,8 @@ body{
   color:#123;
   overflow-x:hidden;
 
-  /* Patagonië stijl – lichter */
-  background: linear-gradient(to bottom, #9ecae6, #c7f0d8);
+  /* Blauwere Patagonië stijl */
+  background: linear-gradient(to bottom, #7fb8da, #cfefff);
 }
 
 /* SECTIES */
@@ -35,7 +35,7 @@ section.visible{
 
 /* CARDS */
 .card{
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.75);
   padding:25px;
   border-radius:25px;
   box-shadow:0 8px 25px rgba(0,0,0,0.15);
@@ -111,7 +111,7 @@ p{font-size:1.1em; line-height:1.5;}
   z-index:1000;
 }
 .popup{
-  background:linear-gradient(to bottom,#c7f0d8,#e0f2fe);
+  background:linear-gradient(to bottom,#d6f2ff,#eefbff);
   padding:25px;
   border-radius:30px;
   max-width:85%;
@@ -234,7 +234,6 @@ input{
 </div>
 
 <script>
-/* SCROLL FADE-IN */
 const sections = document.querySelectorAll('section');
 function revealSections(){
   sections.forEach(sec=>{
@@ -247,7 +246,6 @@ function revealSections(){
 window.addEventListener('scroll',revealSections);
 window.addEventListener('load',revealSections);
 
-/* COUNTDOWN */
 const target = new Date("2026-02-14");
 setInterval(()=>{
 const now = new Date();
@@ -256,7 +254,6 @@ const days = Math.floor(diff/1000/60/60/24);
 document.getElementById("timer").innerText = days+" dagen ❤️";
 },1000);
 
-/* POPUP */
 function openPopup(text){
 document.getElementById("popupText").innerText=text;
 document.getElementById("popupBg").style.display="flex";
@@ -265,7 +262,6 @@ function closePopup(){
 document.getElementById("popupBg").style.display="none";
 }
 
-/* CONFETTI */
 let confettiInterval;
 function startConfetti(){
 confettiInterval=setInterval(()=>{
@@ -279,7 +275,6 @@ setTimeout(()=>c.remove(),3000);
 }
 function stopConfetti(){clearInterval(confettiInterval);}
 
-/* SECRET */
 function checkSecret(){
 const answer = "liefje";  
 const input = document.getElementById("secretInput").value.toLowerCase();
@@ -295,7 +290,6 @@ document.getElementById("secretPopup").style.display="none";
 stopConfetti();
 }
 
-/* CAROUSEL */
 const fotos=[
   {src:"fotos/foto1.jpg", text:"Onze eerste foto samen"},
   {src:"fotos/foto2.jpg", text:"Mijn favoriete herinnering met jou"},
@@ -314,7 +308,6 @@ img.style.opacity=1;
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
 
-/* SWIPE */
 let startX=0;
 const carousel=document.getElementById("carousel");
 carousel.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;});
