@@ -190,13 +190,13 @@ input{
 <section class="card">
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div id="carousel" class="carousel">
-  <button class="arrow left" onclick="prevImage('carousel','carouselDots')">‹</button>
+  <button class="arrow left">‹</button>
   <img src="foto1.jpg" alt="Onze eerste foto samen">
   <img src="foto2.jpg" alt="Mijn favoriete herinnering met jou">
   <img src="foto3.jpg" alt="Tot we weer samen zijn">
-  <button class="arrow right" onclick="nextImage('carousel','carouselDots')">›</button>
+  <button class="arrow right">›</button>
 </div>
-<div class="carousel-dots" id="carouselDots"></div>
+<div class="carousel-dots"></div>
 </section>
 
 <section class="card">
@@ -233,9 +233,9 @@ input{
     <h2>❤️ Geheime boodschap ❤️</h2>
     <p>Ben zo blij met jou.</p>
     <img src="geheimefoto.jpeg" alt="Voor mijn lief" style="width:100%; max-width:300px; border-radius:20px; margin-top:10px;">
-    <div class="carousel-dots" id="secretDots"></div>
-    <button class="arrow left" onclick="prevImage('secretContent','secretDots')">‹</button>
-    <button class="arrow right" onclick="nextImage('secretContent','secretDots')">›</button>
+    <div class="carousel-dots"></div>
+    <button class="arrow left">‹</button>
+    <button class="arrow right">›</button>
   </div>
 </div>
 
@@ -285,43 +285,40 @@ function closeSecret(){
   document.getElementById("secretPopup").style.display="none";
 }
 
-/* CAROUSEL PIJLTJES */
-function initCarouselButtons(carouselId, dotsId){
-  const carousel = document.getElementById(carouselId);
-  const images = carousel.querySelectorAll("img");
-  const dotsContainer = document.getElementById(dotsId);
+/* UNIVERSAL CAROUSEL */
+function Carousel(containerId){
+  const container = document.getElementById(containerId);
+  const images = container.querySelectorAll('img');
+  const dotsContainer = container.querySelector('.carousel-dots');
+  const leftBtn = container.querySelector('.arrow.left');
+  const rightBtn = container.querySelector('.arrow.right');
   let current = 0;
 
   // setup dots
   images.forEach((_,i)=>{
-    const dot=document.createElement('span');
+    const dot = document.createElement('span');
     if(i===0) dot.classList.add('active');
     dotsContainer.appendChild(dot);
   });
   const dots = dotsContainer.querySelectorAll('span');
 
-  function showImage(index){
-    images.forEach((img,i)=> img.style.display='none'); // eerst alles verbergen
-    images[index].style.display='block'; // dan juiste tonen
+  function show(index){
+    images.forEach((img,i)=> img.style.display = 'none');
+    images[index].style.display = 'block';
     dots.forEach((dot,i)=> dot.classList.toggle('active', i===index));
   }
 
-  // Toon eerste afbeelding **pas als alles geladen is**
-  window.addEventListener('load', () => showImage(current));
+  show(current);
 
-  window.nextImage = function(id,dId){
-    current = (current+1)%images.length;
-    showImage(current);
-  }
-  window.prevImage = function(id,dId){
-    current = (current-1+images.length)%images.length;
-    showImage(current);
-  }
+  leftBtn.addEventListener('click', ()=>{ current=(current-1+images.length)%images.length; show(current); });
+  rightBtn.addEventListener('click', ()=>{ current=(current+1)%images.length; show(current); });
 }
 
 // initialisatie
-initCarouselButtons('carousel','carouselDots');
-initCarouselButtons('secretContent','secretDots');
+window.addEventListener('load', ()=>{
+  Carousel('carousel');
+  Carousel('secretContent');
+});
 </script>
 
 </body>
