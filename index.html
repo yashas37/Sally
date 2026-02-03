@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sally ❤️</title>
-
 <style>
 * { box-sizing: border-box; }
 
@@ -102,6 +101,13 @@ p{font-size:1.1em; line-height:1.5;}
   background:#f0e68c;
 }
 
+/* carousel caption */
+.carousel-caption{
+  margin-top:10px;
+  font-style:italic;
+  color:#034;
+}
+
 /* HARTJES */
 .hearts{
   display:grid;
@@ -174,7 +180,6 @@ input{
 }
 </style>
 </head>
-
 <body>
 
 <section class="card">
@@ -187,14 +192,17 @@ input{
 <p id="timer"></p>
 </section>
 
+<!-- CAROUSEL MET CAPTIONS -->
 <section class="card">
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div id="carousel" class="carousel">
   <button class="arrow left">‹</button>
-  <img src="foto1.jpg" alt="Onze eerste foto samen">
-  <img src="foto2.jpg" alt="Mijn favoriete herinnering met jou">
-  <img src="foto3.jpg" alt="Tot we weer samen zijn">
+  <img src="foto1.jpg" data-caption="Onze eerste foto samen" alt="Onze eerste foto samen">
+  <img src="foto2.jpg" data-caption="Mijn favoriete herinnering met jou" alt="Mijn favoriete herinnering met jou">
+  <img src="foto3.jpg" data-caption="Tot we weer samen zijn" alt="Tot we weer samen zijn">
+  <!-- Extra foto's kunnen hier toegevoegd worden -->
   <button class="arrow right">›</button>
+  <p class="carousel-caption"></p>
 </div>
 <div class="carousel-dots"></div>
 </section>
@@ -236,6 +244,7 @@ input{
     <div class="carousel-dots"></div>
     <button class="arrow left">‹</button>
     <button class="arrow right">›</button>
+    <p class="carousel-caption"></p>
   </div>
 </div>
 
@@ -285,39 +294,47 @@ function closeSecret(){
   document.getElementById("secretPopup").style.display="none";
 }
 
-/* UNIVERSAL CAROUSEL */
-function Carousel(containerId){
+/* CAROUSEL MET CAPTIONS EN PIJLTJES */
+function CarouselWithCaptions(containerId){
   const container = document.getElementById(containerId);
   const images = container.querySelectorAll('img');
-  const dotsContainer = container.querySelector('.carousel-dots');
+  const dotsContainer = container.nextElementSibling || container.querySelector('.carousel-dots');
   const leftBtn = container.querySelector('.arrow.left');
   const rightBtn = container.querySelector('.arrow.right');
+  const captionEl = container.querySelector('.carousel-caption');
   let current = 0;
 
   // setup dots
   images.forEach((_,i)=>{
-    const dot = document.createElement('span');
+    const dot=document.createElement('span');
     if(i===0) dot.classList.add('active');
     dotsContainer.appendChild(dot);
   });
   const dots = dotsContainer.querySelectorAll('span');
 
   function show(index){
-    images.forEach((img,i)=> img.style.display = 'none');
-    images[index].style.display = 'block';
+    images.forEach((img,i)=> img.style.display='none');
+    images[index].style.display='block';
+    captionEl.innerText = images[index].dataset.caption || '';
     dots.forEach((dot,i)=> dot.classList.toggle('active', i===index));
   }
 
   show(current);
 
-  leftBtn.addEventListener('click', ()=>{ current=(current-1+images.length)%images.length; show(current); });
-  rightBtn.addEventListener('click', ()=>{ current=(current+1)%images.length; show(current); });
+  leftBtn.addEventListener('click', ()=>{
+    current = (current-1+images.length)%images.length;
+    show(current);
+  });
+  rightBtn.addEventListener('click', ()=>{
+    current = (current+1)%images.length;
+    show(current);
+  });
 }
 
 // initialisatie
 window.addEventListener('load', ()=>{
-  Carousel('carousel');
-  Carousel('secretContent');
+  CarouselWithCaptions('carousel');
+  CarouselWithCaptions('secretContent');
 });
 </script>
 
