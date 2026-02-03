@@ -64,7 +64,30 @@ p{font-size:1.1em; line-height:1.5;}
 
 .carousel img {
   width: 100%;
+  display: none;
+}
+
+/* eerste afbeelding zichtbaar */
+.carousel img:first-child {
   display: block;
+}
+
+/* swipe-indicator puntjes */
+.carousel-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+.carousel-dots span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:#ccc;
+  border-radius:50%;
+  margin:0 5px;
+  transition: background 0.3s;
+}
+.carousel-dots span.active{
+  background:#f0e68c;
 }
 
 /* HARTJES */
@@ -158,6 +181,7 @@ input{
   <img src="foto2.jpeg" loading="lazy" alt="Mijn favoriete herinnering met jou">
   <img src="foto3.jpeg" loading="lazy" alt="Tot we weer samen zijn">
 </div>
+<div class="carousel-dots" id="carouselDots"></div>
 </section>
 
 <section class="card">
@@ -193,6 +217,8 @@ input{
 <div class="popup" id="secretContent">
 <h2>❤️ Geheime boodschap ❤️</h2>
 <p>Ben zo blij met jou.</p>
+<img src="geheimefoto.jpeg" alt="Voor mijn lief" style="width:100%; max-width:300px; border-radius:20px; margin-top:10px;">
+<div class="carousel-dots" id="secretDots"></div>
 </div>
 </div>
 
@@ -243,37 +269,40 @@ document.getElementById("secretPopup").style.display="none";
 }
 
 /* SWIPE CAROUSEL */
-const carousel = document.getElementById("carousel");
-const images = carousel.querySelectorAll("img");
-let current = 0;
+function initCarousel(carouselId, dotsId){
+  const carousel = document.getElementById(carouselId);
+  const images = carousel.querySelectorAll("img");
+  const dotsContainer = document.getElementById(dotsId);
 
-let startX = 0;
-carousel.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
+  let current = 0;
+  let startX = 0;
 
-carousel.addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
-  if (endX < startX - 40) { next(); }
-  if (endX > startX + 40) { prev(); }
-});
+  // setup dots
+  images.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if(i===0) dot.classList.add('active');
+    dotsContainer.appendChild(dot);
+  });
+  const dots = dotsContainer.querySelectorAll('span');
 
-function showImage(index) {
-  images.forEach((img, i) => img.style.display = i === index ? "block" : "none");
+  function showImage(index){
+    images.forEach((img,i)=> img.style.display=i===index ? 'block' : 'none');
+    dots.forEach((dot,i)=> dot.classList.toggle('active', i===index));
+  }
+
+  carousel.addEventListener('touchstart', e=> startX=e.touches[0].clientX );
+  carousel.addEventListener('touchend', e=>{
+    let endX = e.changedTouches[0].clientX;
+    if(endX < startX - 40){ current=(current+1)%images.length; showImage(current);}
+    if(endX > startX + 40){ current=(current-1+images.length)%images.length; showImage(current);}
+  });
+
+  window.addEventListener('load', ()=> showImage(current));
 }
 
-function next() {
-  current = (current + 1) % images.length;
-  showImage(current);
-}
-
-function prev() {
-  current = (current - 1 + images.length) % images.length;
-  showImage(current);
-}
-
-// start met eerste afbeelding
-showImage(current);
+// init beide carousels
+initCarousel('carousel','carouselDots');
+initCarousel('secretContent','secretDots');
 </script>
 
 </body>
