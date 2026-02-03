@@ -1,95 +1,135 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wil je mijn Valentijn zijn?</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wil je mijn Valentijn zijn?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      background: url('/mnt/data/A_landing_page_of_a_Dutch_Valentine\'s_Day_proposal.png') no-repeat center center/cover;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      position: relative;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(#aee1f9, #f0e6f6); /* lucht Patagonië */
+  font-family: 'Arial', sans-serif;
+}
 
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 3em;
-      color: #ff4d4d;
-      text-shadow: 2px 2px 5px #00000050;
-      z-index: 1;
-    }
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3em;
+  color: #ff4d4d;
+  text-shadow: 2px 2px 5px #00000050;
+  z-index: 2;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 1.5em;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      z-index: 1;
-    }
+button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  z-index: 2;
+}
+button:hover { background-color: #e60000; }
 
-    button:hover {
-      background-color: #e60000;
-    }
+/* Hartjes */
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 6s linear infinite;
+  z-index: 0;
+}
+.heart::before, .heart::after {
+  content: "";
+  position: absolute;
+  width: 20px; height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: 10px; top: 0; }
 
-    /* Hartjes-animatie */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 6s linear infinite;
-      z-index: 0;
-    }
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: 10px; top: 0; }
+@keyframes float {
+  0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+}
 
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
-    }
-  </style>
+/* Geanimeerde katjes en pinguïns */
+.animal {
+  position: absolute;
+  bottom: 20px;
+  width: 80px;
+  animation: walk 10s linear infinite;
+}
+
+.animal.penguin { width: 60px; bottom: 10px; }
+
+@keyframes walk {
+  0% { left: -100px; transform: scaleX(1); }
+  50% { left: 50vw; transform: scaleX(1); }
+  51% { transform: scaleX(-1); }
+  100% { left: 110vw; transform: scaleX(-1); }
+}
+
+/* Cartoon style */
+.cat, .penguin {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Katje */
+.cat {
+  background: #f4c542;
+}
+.cat::before { content:""; position:absolute; width:20%; height:20%; background:#f4c542; top:-10%; left:0; border-radius:50%; } /* oor links */
+.cat::after { content:""; position:absolute; width:20%; height:20%; background:#f4c542; top:-10%; right:0; border-radius:50%; } /* oor rechts */
+
+/* Pinguïn */
+.penguin {
+  background: #000;
+}
+.penguin::before { content:""; position:absolute; width:60%; height:60%; background:#fff; top:20%; left:20%; border-radius:50%; } /* buik */
+
+</style>
 </head>
 <body>
-  <h1>Wil je mijn Valentijn zijn?</h1>
-  <button onclick="window.location.href='https://yashas37.github.io/Sally-My-Valentine/'">Ja! 😻🐧</button>
 
-  <!-- 20 hartjes -->
-  <script>
-    for(let i = 0; i < 20; i++){
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
-      heart.style.width = heart.style.height = 20 + Math.random() * 20 + 'px';
-      document.body.appendChild(heart);
-    }
-  </script>
+<h1>Wil je mijn Valentijn zijn?</h1>
+<button onclick="window.location.href='https://yashas37.github.io/Sally-My-Valentine/'">Ja!</button>
+
+<!-- Hartjes -->
+<script>
+for(let i=0;i<20;i++){
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random()*100 + 'vw';
+  heart.style.animationDuration = 4 + Math.random()*4 + 's';
+  heart.style.width = heart.style.height = 20 + Math.random()*20 + 'px';
+  document.body.appendChild(heart);
+}
+</script>
+
+<!-- Katjes en pinguïns -->
+<div class="animal"><div class="cat"></div></div>
+<div class="animal" style="animation-delay:2s;"><div class="cat"></div></div>
+<div class="animal penguin" style="animation-delay:4s;"><div class="penguin"></div></div>
+
 </body>
 </html>
