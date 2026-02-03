@@ -159,6 +159,14 @@ input{
   from{transform:scale(0.8);opacity:0;}
   to{transform:scale(1);opacity:1;}
 }
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .left { left: 5px; }
+  .right { right: 5px; }
+} 
 </style>
 </head>
 
@@ -322,15 +330,3 @@ carousel.addEventListener("touchend",e=>{
 </body>
 </html>
 
-* {
-  box-sizing: border-box;
-}
-
-@media (max-width: 600px) {
-  .left {
-    left: 5px;
-  }
-  .right {
-    right: 5px;
-  }
-} 
