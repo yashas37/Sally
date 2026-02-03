@@ -174,7 +174,7 @@ input{
 <h2>Een paar van mijn favoriete herinneringen 📸</h2>
 <div class="carousel" id="carousel">
   <button class="arrow left" onclick="prev()">‹</button>
-  <img id="slide" src="foto1.jpg">
+  <img id="slide" src="foto1.jpeg" loading="lazy">
   <button class="arrow right" onclick="next()">›</button>
 </div>
 <p class="caption" id="caption">Onze eerste foto samen</p>
@@ -231,7 +231,7 @@ window.addEventListener('scroll',revealSections);
 window.addEventListener('load',revealSections);
 
 /* COUNTDOWN */
-const target = new Date("2026-03-01");
+const target = new Date("2026-02-14");
 setInterval(()=>{
 const now = new Date();
 const diff = target-now;
@@ -276,7 +276,7 @@ setTimeout(()=>{
 img.src=fotos[i].src;
 document.getElementById("caption").innerText=fotos[i].text;
 img.style.opacity=1;
-},200);
+},100); // iets sneller fade
 }
 function next(){i=(i+1)%fotos.length;show();}
 function prev(){i=(i-1+fotos.length)%fotos.length;show();}
