@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>❤️ Sally ❤️</title>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -42,7 +44,7 @@ section.visible{
   width:100%;
 }
 
-/* INTRO CARD */
+/* INTRO CARD (welkomstekst) */
 .intro{
   text-align:left;
 }
@@ -144,6 +146,14 @@ p{font-size:1.1em; line-height:1.5;}
   max-width:85%;
 }
 
+/* MAP */
+#travelMap{
+  height:300px;
+  width:100%;
+  border-radius:20px;
+  margin-top:15px;
+}
+
 /* BUTTONS */
 button{
   background:#f0e68c;
@@ -163,11 +173,8 @@ input{
   font-size:1em;
 }
 </style>
-
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 </head>
+
 <body>
 
 <!-- INTRO -->
@@ -175,74 +182,93 @@ input{
   <p>Hoi knappe wereldreizigster a.k.a. mijn Valentijn!</p>
   <p>Heel trots om jouw Valentijn & vriendin te mogen zijn ❤️</p>
   <p>
-    Omdat dit onze eerste Valentijnsdag samen is, heb ik iets voor je gemaakt dat geen ruimte inneemt in jouw backpack. 
-    Op deze site kun je nog veel meer redenen terugvinden waarom ik van jou hou! 
+    Omdat dit onze eerste Valentijnsdag samen is, heb ik iets voor je gemaakt dat geen ruimte inneemt in jouw backpack: deze site. 
+    Op de kaart kon je o.a. lezen dat ik heel blij ben dat we over heel veel dingen hetzelfde denken en jij mij tegelijkertijd ook andere perspectieven kunt geven. <br>
+    Maar dat is natuurlijk niet het enige wat ik leuk aan jou vindt en waarom ik van jou hou. Op deze site kun je nog veel meer redenen terugvinden! 
+    En ik kan je verklappen dat er elke dag meer redenen bij komen!❤️
   </p>
-  <p>Heel fijne Valentijnsdag lieverd en geniet van jouw reis! ❤️</p>
+  <p>Heel fijne Valentijnsdag lieverd en geniet van jouw reis! Ik kan niet wachten om al jouw mooie reisverhalen te horen ❤️</p>
   <p>Ik hou van jou en dikke kus,<br>Yasmine</p>
 </section>
 
 <!-- CAROUSEL -->
 <section class="card">
-  <h2>Een paar van mijn favoriete herinneringen 📸</h2>
-  <div id="carousel" class="carousel">
-    <button class="arrow left">‹</button>
-    <img src="foto1.jpg" data-caption="Toen er een vlinder op jouw schouder kwam zitten.">
-    <img src="foto2.jpg" data-caption="De warme zomerdag in Rotterdam.">
-    <img src="foto3.jpg" data-caption="Bricks of Wonder in de Mall.">
-    <button class="arrow right">›</button>
-    <p class="carousel-caption"></p>
-  </div>
-  <div class="carousel-dots"></div>
+<h2>Een paar van mijn favoriete herinneringen 📸</h2>
+<div id="carousel" class="carousel">
+  <button class="arrow left">‹</button>
+  <img src="foto1.jpg" data-caption="Toen er een vlinder op jouw schouder kwam zitten in de Botanische Tuin. Vond die dag in Utrecht sowieso heel fijn, ook onze wandeling door de stad!" style="display:block;">
+  <img src="foto2.jpg" data-caption="De warme zomerdag in Rotterdam. Zelfs in de bioscoop was het warm!">
+  <img src="foto3.jpg" data-caption="Bricks of Wonder in de Mall. Inspiratie opdoen voor onze LEGO-bouwwerken hihi">
+  <!-- Voeg extra foto's hier toe -->
+  <button class="arrow right">›</button>
+  <p class="carousel-caption"></p>
+</div>
+<div class="carousel-dots"></div>
 </section>
 
 <!-- HEARTS -->
 <section class="card">
-  <h2>A few things I love about you</h2>
-  <div class="hearts">
-    <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt.')">💙</div>
-    <div class="heart" onclick="openPopup('Hoe jij over jouw vrienden en familie praat.')">💚</div>
-    <div class="heart" onclick="openPopup('De manier waarop je lacht en jouw ogen beginnen te glinsteren.')">💛</div>
-    <div class="heart" onclick="openPopup('Jouw brein. Jij kunt altijd heel snel verbanden leggen.')">🧡</div>
-    <div class="heart" onclick="openPopup('Voor altijd wij')">💜</div>
-  </div>
+<h2>A few things I love about you</h2>
+<div class="hearts">
+  <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt. Jouw realistische en praktische kijk is ontzettend verhelderend en kalmerend')">💙</div>
+  <div class="heart" onclick="openPopup('Hoe jij over jouw vrienden en familie praat. Je spreekt altijd met zo veel liefde over de mensen om wie je geeft! Je bent niet bang om die liefde ook te tonen en dat vind ik ontzettend mooi')">💚</div>
+  <div class="heart" onclick="openPopup('De manier waarop je lacht en jouw ogen beginnen te glinsteren wanneer je blij bent. ')">💛</div>
+  <div class="heart" onclick="openPopup('Jouw brein. Jij kunt altijd heel snel verbanden leggen.')">🧡</div>
+  <div class="heart" onclick="openPopup('Voor altijd wij')">💜</div>
+</div>
 </section>
 
-<!-- GEHEIME BOODSCHAP -->
+<!-- GEHEIME BOODSCHAP + E-GIFTCARD -->
 <section class="card">
-  <h2>❤️ Geheime boodschap ❤️</h2>
-  <p>Ben zo blij met jou. 💌<br>Ik kan niet wachten om samen nieuwe avonturen te beleven!</p>
+  <h2>Een geheime boodschap</h2>
+  <p>Ben zo blij met jou 💌<br>Ik kan niet wachten om samen nieuwe avonturen te beleven!</p>
   <img src="geheimefoto.jpeg" style="width:100%; border-radius:15px; margin-top:10px;">
 
   <div style="margin-top:20px;">
     <input id="giftInput" placeholder="Raad het wachtwoord">
     <button onclick="checkGift()">Open cadeaukaart</button>
+    <p style="font-size:0.9em; color:#034; margin-top:5px;">
+      Tip: kijk naar de dag waarop jij mij verkering vroeg 😉
+    </p>
   </div>
 </section>
+
+<!-- E-GIFTCARD POPUP -->
+<div class="popup-bg" id="giftPopup" onclick="closeGift()">
+  <div class="popup">
+    <h2>Je cadeaukaart 🎁</h2>
+    <p>Gefeliciteerd! Hier is je digitale Starbucks cadeaukaart:</p>
+    <img src="starbucksgift.png" style="width:100%; border-radius:15px; display:block; margin-top:10px;">
+  </div>
+</div>
 
 <!-- SPOTIFY -->
 <section class="card">
   <h2>Onze soundtrack 🎧</h2>
-  <div style="border-radius:25px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.15); margin-top:15px;">
-    <iframe 
-      src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb?utm_source=generator"
-      width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
+  <iframe 
+    data-testid="embed-iframe"
+    style="border-radius:12px"
+    src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb?utm_source=generator"
+    width="100%"
+    height="352"
+    frameBorder="0"
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
   <p style="margin-top:15px; font-style:italic; color:#034;">
     Bij deze nummers denk ik altijd aan jou 💙
   </p>
 </section>
 
-<!-- REISRUTE KAART -->
+<!-- REISKAART -->
 <section class="card">
-  <h2>Jouw reisroute 🌍</h2>
-  <div id="travelMap" style="height:300px; border-radius:25px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.15); margin-top:15px;"></div>
-  <p id="distanceText" style="margin-top:15px; font-style:italic; color:#034;"></p>
+<h2>Jouw reisschema 🗺️</h2>
+<div id="travelMap"></div>
+<p id="distanceText" style="margin-top:10px; font-style:italic; color:#034;"></p>
 </section>
 
-<!-- COUNTDOWN -->
+<!-- DAGENTELLER -->
 <section class="card">
   <h2>Aantal dagen totdat we elkaar weer zien</h2>
   <p id="timer"></p>
@@ -256,17 +282,7 @@ input{
   <div class="popup" id="popupText"></div>
 </div>
 
-<div class="popup-bg" id="giftPopup" onclick="closeGift()">
-  <div class="popup">
-    <h2>🎁 Je e-giftcard!</h2>
-    <img src="starbucks-giftcard.png" style="width:100%; border-radius:15px; display:block;">
-    <p>Geniet van je koffie! ☕❤️</p>
-  </div>
-</div>
-
-<!-- LEAFLET JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 /* SCROLL FADE-IN */
 const sections=document.querySelectorAll("section");
@@ -277,13 +293,16 @@ window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
 const target=new Date("2026-03-01");
 setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";},1000);
 
-/* POPUPS */
+/* POPUP */
 function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
 function closePopup(){popupBg.style.display="none";}
+
+/* GEHEIM + E-GIFTCARD */
 function checkGift(){
   const input=document.getElementById('giftInput').value;
-  if(input.toLowerCase()==="valentijn"){document.getElementById('giftPopup').style.display="flex";}
-  else alert("Bijna… 💭");
+  if(input==="23/01/2026"){
+    document.getElementById('giftPopup').style.display="flex";
+  } else { alert("Bijna… 💭"); }
 }
 function closeGift(){document.getElementById('giftPopup').style.display="none";}
 
@@ -296,7 +315,11 @@ function Carousel(id){
   const left=c.querySelector(".left");
   const right=c.querySelector(".right");
   let i=0;
-  imgs.forEach((_,n)=>{const d=document.createElement("span"); if(n===0)d.classList.add("active"); dots.appendChild(d);});
+  imgs.forEach((_,n)=>{
+    const d=document.createElement("span");
+    if(n===0)d.classList.add("active");
+    dots.appendChild(d);
+  });
   const ds=dots.querySelectorAll("span");
   function show(n){
     imgs.forEach(im=>im.style.display='none');
@@ -311,28 +334,35 @@ function Carousel(id){
 }
 window.onload=()=>Carousel("carousel");
 
-/* LEAFLET REISRUTE KAART */
-const myCoords=[52.0907,5.1214]; // jouw locatie
-const schedule=[
-  {city:"Amsterdam", date:"2026-02-10T10:00:00+01:00", coords:[52.3676,4.9041]},
-  {city:"Parijs", date:"2026-02-12T12:00:00+01:00", coords:[48.8566,2.3522]},
-  {city:"Rome", date:"2026-02-15T14:00:00+01:00", coords:[41.9028,12.4964]}
+/* REISKAART */
+const schedule = [
+  {city: "Amsterdam", date:"2026-02-10T10:00:00+01:00", coords:[52.3676,4.9041]},
+  {city: "Parijs", date:"2026-02-12T12:00:00+01:00", coords:[48.8566,2.3522]},
+  {city: "Rome", date:"2026-02-15T14:00:00+01:00", coords:[41.9028,12.4964]}
 ];
-const now=new Date();
-let currentLocation=schedule[0].coords;
-for(let i=0;i<schedule.length;i++){if(now>=new Date(schedule[i].date)){currentLocation=schedule[i].coords;}}
+const myCoords = [52.0907,5.1214]; // Voorburg
+const now = new Date();
+let currentLocation = schedule[0].coords;
+for(let i=0;i<schedule.length;i++){
+  if(now >= new Date(schedule[i].date)){
+    currentLocation = schedule[i].coords;
+  }
+}
 
-const map=L.map('travelMap').setView(currentLocation,4);
+const map = L.map('travelMap').setView(currentLocation,4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
 
-const routeCoords=schedule.map(s=>s.coords);
+const routeCoords = schedule.map(s => s.coords);
 L.polyline(routeCoords,{color:'red', weight:4}).addTo(map);
 
-L.circleMarker(currentLocation,{radius:10,color:'blue',fillColor:'blue',fillOpacity:0.7}).addTo(map).bindTooltip("Jij bent hier 💙",{permanent:true,direction:'top',className:'leaflet-tooltip'});
-L.circleMarker(myCoords,{radius:10,color:'pink',fillColor:'pink',fillOpacity:0.7}).addTo(map);
+L.circleMarker(currentLocation,{radius:10,color:'blue',fillColor:'blue',fillOpacity:0.7}).addTo(map)
+  .bindTooltip("Jij bent hier 💙",{permanent:true,direction:'top',className:'leaflet-tooltip'});
 
-const distance=map.distance(L.latLng(currentLocation),L.latLng(myCoords))/1000;
-document.getElementById('distanceText').innerText=`Afstand tot mij: ${distance.toFixed(1)} km ❤️`;
+L.circleMarker(myCoords,{radius:10,color:'pink',fillColor:'pink',fillOpacity:0.7}).addTo(map)
+  .bindTooltip("Ik ben hier 💗",{permanent:true,direction:'top',className:'leaflet-tooltip'});
+
+const distance = map.distance(L.latLng(currentLocation), L.latLng(myCoords))/1000;
+document.getElementById('distanceText').innerText = `Afstand tot mij: ${distance.toFixed(1)} km ❤️`;
 </script>
 
 </body>
