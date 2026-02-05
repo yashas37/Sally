@@ -71,7 +71,7 @@ p{font-size:1.1em; line-height:1.5;}
 }
 .carousel img {
   width: 100%;
-  display: none; /* behalve eerste img, die krijgt display:block in HTML */
+  display: none;
 }
 
 /* pijltjes */
@@ -142,6 +142,7 @@ p{font-size:1.1em; line-height:1.5;}
   padding:25px;
   border-radius:30px;
   max-width:85%;
+  text-align:center;
 }
 
 /* BUTTONS */
@@ -175,7 +176,7 @@ input{
   
   <p>
     Omdat dit onze eerste Valentijnsdag samen is, heb ik iets voor je gemaakt dat geen ruimte inneemt in jouw backpack: deze site. 
-    Op de kaart kon je o.a. lezen dat ik heel blij ben dat we over heel veel dingen hetzeflde denken en jij mij tegelijkertijd ook andere perspectieven kunt geven. <br>
+    Op de kaart kon je o.a. lezen dat ik heel blij ben dat we over heel veel dingen hetzelfde denken en jij mij tegelijkertijd ook andere perspectieven kunt geven. <br>
     Maar dat is natuurlijk niet het enige wat ik leuk aan jou vindt en waarom ik van jou hou. Op deze site kun je nog veel meer redenen terugvinden! 
     En ik kan je verklappen dat er elke dag meer redenen bij komen!❤️
   </p>
@@ -185,7 +186,6 @@ input{
   </p>
 
   <p>
-
     Ik hou van jou en dikke kus,<br>
     Yasmine
   </p>
@@ -222,7 +222,8 @@ input{
 <div class="carousel-dots"></div>
 </section>
 
-  <section class="card">
+<!-- HARTJES -->
+<section class="card">
 <h2>A few things I love about you</h2>
 <div class="hearts">
   <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt. Jouw realistische en praktische kijk is ontzettend verhelderend en kalmerend')">💙</div>
@@ -232,7 +233,8 @@ input{
   <div class="heart" onclick="openPopup('Voor altijd wij')">💜</div>
 </div>
 </section>
-  
+
+<!-- GEHEIME BOODSCHAP -->
 <section class="card">
   <h2>Een geheime boodschap</h2>
 
@@ -243,29 +245,30 @@ input{
 
   <br>
   <button onclick="checkSecret()">Open geheim</button>
-</section
+</section>
 
-
-  <section class="card">
+<!-- SPOTIFY CARD -->
+<section class="card">
   <h2>Onze soundtrack 🎧</h2>
 
-  <iframe 
-    data-testid="embed-iframe"
-    style="border-radius:12px"
-    src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb?utm_source=generator"
-    width="100%"
-    height="352"
-    frameBorder="0"
-    allowfullscreen=""
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy">
-  </iframe>
+  <div style="border-radius:25px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.15); margin-top:15px;">
+    <iframe 
+      src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb?utm_source=generator"
+      width="100%" 
+      height="352" 
+      frameborder="0" 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      loading="lazy"
+      style="display:block; width:100%; height:100%; border:none;">
+    </iframe>
+  </div>
 
   <p style="margin-top:15px; font-style:italic; color:#034;">
     Bij deze nummers denk ik altijd aan jou 💙
   </p>
 </section>
 
+<!-- COUNTDOWN -->
 <section class="card">
   <h2>Aantal dagen totdat we elkaar weer zien</h2>
 
@@ -276,7 +279,6 @@ input{
   </p>
 </section>
 
-  
 <!-- POPUPS -->
 <div class="popup-bg" id="popupBg" onclick="closePopup()">
   <div class="popup" id="popupText"></div>
@@ -289,7 +291,6 @@ input{
     <img src="geheimefoto.jpeg" style="width:100%;border-radius:15px; display:block;">
   </div>
 </div>
-
 
 <script>
 /* SCROLL FADE-IN */
@@ -305,8 +306,9 @@ setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-n
 function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
 function closePopup(){popupBg.style.display="none";}
 function checkSecret(){
-if(secretInput.value.toLowerCase()==="23/01/2026"){secretPopup.style.display="flex";}
-else alert("Bijna… 💭");
+  if(secretInput.value.toLowerCase()==="23/01/2026"){
+    secretPopup.style.display="flex";
+  } else alert("Bijna… 💭");
 }
 function closeSecret(){secretPopup.style.display="none";}
 
