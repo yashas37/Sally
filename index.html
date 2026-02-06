@@ -332,7 +332,7 @@ window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
 
 /* COUNTDOWN */
 const target=new Date("2026-03-01");
-setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";},1000);
+setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen";},1000);
 
 /* POPUP */
 function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
@@ -377,7 +377,7 @@ window.onload=()=>Carousel("carousel");
 
 /* REISKAART */
 const schedule = [
-  {city: "El Calafate", date:"2026-02-10T10:00:00+01:00", coords:[-50.338676, -72.273247 ]},
+  {city: "El Calafate", date:"2026-02-10T10:00:00+01:00", coords:[-51.734327, -72.468163]},
  /* {city: "Parijs", date:"2026-02-12T12:00:00+01:00", coords:[48.8566,2.3522]},
   {city: "Rome", date:"2026-02-15T14:00:00+01:00", coords:[41.9028,12.4964]} */
 ];
