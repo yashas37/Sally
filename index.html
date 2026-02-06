@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -5,28 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>❤️ Sally ❤️</title>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
 <style>
 * { box-sizing: border-box; }
-
-html, body{
-  max-width:100%;
-  overflow-x:hidden;
-}
 
 body{
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:#033;
+  overflow-x:hidden;
   background: linear-gradient(to bottom, #4b79a1, #283e51);
 }
 
 /* SECTIES */
 section{
-  padding:40px 16px;
+  padding:50px 20px;
   text-align:center;
   margin:30px auto;
   max-width:420px;
-  width:100%;
   opacity:0;
   transform: translateY(20px);
   transition: all 0.6s ease;
@@ -43,37 +41,82 @@ section.visible{
   border-radius:25px;
   box-shadow:0 8px 25px rgba(0,0,0,0.15);
   min-height:270px;
+  display:inline-block;
   width:100%;
 }
 
-/* INTRO */
-.intro{text-align:left;}
-.intro p{font-size:0.95em; line-height:1.6;}
-.intro p:first-child{font-weight:bold; font-size:1.05em;}
+/* INTRO CARD (welkomstekst) */
+.intro{
+  text-align:left;
+}
+.intro p{
+  font-size:0.95em;
+  line-height:1.6;
+  color:#033;
+}
+.intro p:first-child{
+  font-weight:bold;
+  font-size:1.05em;
+}
 
 /* TITELS */
 h2{font-size:1.8em; color:#034; margin-bottom:10px;}
 p{font-size:0.9em; line-height:1.5;}
 
 /* CAROUSEL */
-.carousel{position:relative; width:100%; max-width:400px; margin:auto; overflow:hidden; border-radius:20px;}
-.carousel img{width:100%; display:none;}
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.carousel img {
+  width: 100%;
+  display: none;
+}
 
+/* pijltjes */
 .arrow{
-  position:absolute; top:50%; transform:translateY(-50%);
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
   background: rgba(255,255,255,0.8);
-  border:none; font-size:25px; padding:5px 12px;
-  cursor:pointer; border-radius:50%;
+  color:#283e51;
+  border:none;
+  font-size:25px;
+  padding:5px 12px;
+  cursor:pointer;
+  border-radius:50%;
 }
-.left{left:5px;} .right{right:5px;}
+.left{left:5px;}
+.right{right:5px;}
+.arrow:hover{background:#f0e68c;}
 
-.carousel-dots{text-align:center; margin-top:10px;}
-.carousel-dots span{
-  display:inline-block; width:10px; height:10px;
-  background:#a7f0d1; border-radius:50%; margin:0 5px;
+/* dots */
+.carousel-dots {
+  text-align: center;
+  margin-top: 10px;
 }
-.carousel-dots span.active{background:#00b894;}
-.carousel-caption{margin-top:10px; font-style:italic; color:#034;}
+.carousel-dots span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:#a7f0d1;
+  border-radius:50%;
+  margin:0 5px;
+}
+.carousel-dots span.active{
+  background:#00b894;
+}
+
+/* caption */
+.carousel-caption{
+  margin-top:10px;
+  font-style:italic;
+  color:#034;
+}
 
 /* HARTJES */
 .hearts{
@@ -82,61 +125,89 @@ p{font-size:0.9em; line-height:1.5;}
   justify-content:center;
   gap:8px;
 }
-.heart{font-size:40px; cursor:pointer;}
+.heart{
+  font-size:40px;
+  cursor:pointer;
+}
 
 /* POPUPS */
 .popup-bg{
-  display:none; position:fixed; inset:0;
+  display:none;
+  position:fixed;
+  inset:0;
   background:rgba(0,0,0,0.5);
-  justify-content:center; align-items:center; z-index:1000;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
 }
 .popup{
   background:linear-gradient(135deg,#e0f2fe,#ccfbf1);
-  padding:25px; border-radius:30px; max-width:85%;
+  padding:25px;
+  border-radius:30px;
+  max-width:85%;
 }
 
-/* BUTTONS + INPUT */
+/* MAP */
+#travelMap{
+  height:300px;
+  width:100%;
+  border-radius:20px;
+  margin-top:15px;
+}
+
+/* BUTTONS */
 button{
-  background:#f0e68c; border:none; padding:12px 25px;
-  border-radius:25px; font-size:16px; cursor:pointer;
-}
-input{
-  padding:10px; border-radius:10px;
-  border:1px solid #aaa; font-size:1em;
+  background:#f0e68c;
+  color:#283e51;
+  border:none;
+  padding:12px 25px;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
 }
 
-/* TIMELINE */
-.timeline{list-style:none; padding:0; margin:0; text-align:left;}
-.timeline li{
-  display:flex; align-items:center; gap:10px;
-  padding:6px 0; font-size:0.95em;
+/* INPUT */
+input{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #aaa;
+  font-size:1em;
 }
-.timeline .done{color:#7fbfb0;}
-.timeline .future{color:#cfeee3;}
-.timeline .current{color:#4b79a1;}
-.timeline .home{color:#6fbf73;}
+
+/* MOBIEL: ruimte rond cards */
+@media (max-width: 480px) {
+  section {
+    margin: 30px 12px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+
 <!-- INTRO -->
 <section class="card intro">
   <p>Hoi knappe wereldreizigster</p>
   <p>Heel trots om jouw Valentijn & vriendin te mogen zijn ❤️</p>
-  <p>Voor onze eerste Valentijnsdag samen heb ik iets voor je gemaakt dat geen ruimte inneemt in jouw backpack: deze site. Een soort digitale knuffel!</p>
-  <p>Heel fijne Valentijnsdag lieverd en geniet van jouw reis!</p>
-  <p>Ik hou ontzettend veel van jou! <br>Dikke kus, Yasmine</p>
+  <p>
+    Voor onze eerste Valentijnsdag samen heb ik iets voor je gemaakt dat geen ruimte inneemt in jouw backpack: deze site. 
+    Een soort digitale knuffel!
+  </p>
+  <p>Heel fijne Valentijnsdag lieverd en geniet van jouw reis! Ik kan niet wachten om al jouw mooie reisverhalen te horen ❤️</p>
+  <p>Ik hou ontzettend veel van jou! <br> Dikke kus, Yasmine</p>
 </section>
 
 <!-- CAROUSEL -->
 <section class="card">
-<h2>Herinneringen samen 📸</h2>
+<h2> Een paar van mijn favoriete herinneringen samen 📸</h2>
+  <p>Zin om nog heel veel meer herinneringen met jou te maken</p>
 <div id="carousel" class="carousel">
   <button class="arrow left">‹</button>
-  <img src="foto1.jpg" style="display:block;">
-  <img src="foto2.jpg">
-  <img src="foto3.jpg">
+  <img src="foto1.jpg" data-caption="Toen er een vlinder op jouw schouder kwam zitten in de Botanische Tuin. Vond die dag in Utrecht sowieso heel fijn, ook onze wandeling door de stad!" style="display:block;">
+  <img src="foto2.jpg" data-caption="De warme zomerdag in Rotterdam. Zelfs in de bioscoop was het warm!">
+  <img src="foto3.jpg" data-caption="Bricks of Wonder in de Mall. Inspiratie opdoen voor onze LEGO-bouwwerken hihi">
+  <!-- Voeg extra foto's hier toe -->
   <button class="arrow right">›</button>
   <p class="carousel-caption"></p>
 </div>
@@ -145,31 +216,85 @@ input{
 
 <!-- HEARTS -->
 <section class="card">
-<h2>Wat jou fantastisch maakt</h2>
+<h2> Wat jou fantastisch maakt </h2>
+  <p>In de kaart kon je o.a. lezen dat ik heel blij ben dat we over heel veel dingen hetzelfde denken en het tegelijkertijd ook heel fijn vind dat jij mij ook andere perspectieven kunt geven. <br>
+    Maar dat is natuurlijk niet het enige wat ik leuk vind aan jou. Hieronder nog veel meer redenen waarom ik van jou hou. </p>
 <div class="hearts">
+  <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt. Jouw realistische en praktische kijk is ontzettend verhelderend en kalmerend')">❤️</div>
+  <div class="heart" onclick="openPopup('Hoe jij over jouw vrienden en familie praat. Je spreekt altijd met zo veel liefde over de mensen om wie je geeft! Je bent niet bang om die liefde ook te tonen en dat vind ik ontzettend mooi')">❤️</div>
+  <div class="heart" onclick="openPopup('De manier waarop je lacht en jouw ogen beginnen te glinsteren wanneer je blij bent. ')">❤️</div>
+  <div class="heart" onclick="openPopup('Jouw brein. Jij kunt altijd heel snel verbanden leggen.')">❤️</div>
+  <div class="heart" onclick="openPopup('Voor altijd wij')">❤️</div>
+  <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt. Jouw realistische en praktische kijk is ontzettend verhelderend en kalmerend')">❤️</div>
+  <div class="heart" onclick="openPopup('Hoe jij over jouw vrienden en familie praat. Je spreekt altijd met zo veel liefde over de mensen om wie je geeft! Je bent niet bang om die liefde ook te tonen en dat vind ik ontzettend mooi')">❤️</div>
+  <div class="heart" onclick="openPopup('De manier waarop je lacht en jouw ogen beginnen te glinsteren wanneer je blij bent. ')">❤️</div>
+  <div class="heart" onclick="openPopup('Jouw brein. Jij kunt altijd heel snel verbanden leggen.')">❤️</div>
+  <div class="heart" onclick="openPopup('Voor altijd wij')">❤️</div>
+  <div class="heart" onclick="openPopup('De manier waarop jij naar de wereld kijkt. Jouw realistische en praktische kijk is ontzettend verhelderend en kalmerend')">❤️</div>
+  <div class="heart" onclick="openPopup('Hoe jij over jouw vrienden en familie praat. Je spreekt altijd met zo veel liefde over de mensen om wie je geeft! Je bent niet bang om die liefde ook te tonen en dat vind ik ontzettend mooi')">❤️</div>
+  <div class="heart" onclick="openPopup('De manier waarop je lacht en jouw ogen beginnen te glinsteren wanneer je blij bent. ')">❤️</div>
+  <div class="heart" onclick="openPopup('Jouw brein. Jij kunt altijd heel snel verbanden leggen.')">❤️</div>
   <div class="heart" onclick="openPopup('Voor altijd wij')">❤️</div>
 </div>
 </section>
 
-<!-- TIMELINE (vervangt map) -->
+<!-- GEHEIME BOODSCHAP + E-GIFTCARD -->
 <section class="card">
-  <h2>Haar reis ✈️</h2>
-  <ul class="timeline">
-    <li><span class="done">📍</span> Amsterdam → Zuid-Amerika</li>
-    <li><span class="done">📍</span> El Calafate</li>
-    <li><span class="current">💙</span> Torres del Paine</li>
-    <li><span class="future">🌿</span> Ushuaia</li>
-    <li><span class="future">🌿</span> Buenos Aires</li>
-    <li><span class="future">🌿</span> Rio de Janeiro</li>
-    <li><span class="future">🌿</span> New York</li>
-    <li><span class="home">💚</span> Terug naar mij</li>
-  </ul>
+  <h2>Valentijnsboodschap 💌 </h2>
+  <p> Lieve Sally, <br> Ik ben gek op jou en ben ontzettend dankbaar voor jou en voor de liefde die jij mij geeft. Jouw Valentijnscadeau wacht op jou, zie onderstaande foto! </p>
+  <img src="geheimefoto.jpeg" style="width:100%; border-radius:15px; margin-top:10px;">
+
+  <div style="margin-top:20px;">
+    <input id="giftInput" placeholder="Raad het wachtwoord">
+    <button onclick="checkGift()">Open cadeaukaart</button>
+    <p style="font-size:0.9em; color:#034; margin-top:5px;">
+      Tip: Op deze dag vroeg jij mij verkering (dd/mm/jjjj) 💌
+    </p>
+  </div>
 </section>
 
-<!-- COUNTDOWN -->
+<!-- E-GIFTCARD POPUP -->
+<div class="popup-bg" id="giftPopup" onclick="closeGift()">
+  <div class="popup">
+    <h2>Jouw cadeaukaart 🎁</h2>
+    <p>Hierbij een Starbucks cadeaukaart die je kunt gebruiken in New York, geniet ervan:</p>
+    <img src="starbucksgift.png" style="width:100%; border-radius:15px; display:block; margin-top:10px;">
+  </div>
+</div>
+
+<!-- SPOTIFY -->
 <section class="card">
-  <h2>Tot we elkaar weer zien</h2>
+  <h2>Onze soundtrack 🎧</h2>
+  <iframe 
+    data-testid="embed-iframe"
+    style="border-radius:12px"
+    src="https://open.spotify.com/embed/playlist/2Y92bwY9KgMb6LAztX4OUb?utm_source=generator"
+    width="100%"
+    height="352"
+    frameBorder="0"
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+  <p style="margin-top:15px; font-style:italic; color:#034;">
+    Bij deze nummers denk ik altijd aan jou 💙
+  </p>
+</section>
+
+<!-- REISKAART -->
+<section class="card">
+<h2> 🗺️</h2>
+<div id="travelMap"></div>
+<p id="distanceText" style="margin-top:10px; font-style:italic; color:#034;"></p>
+</section>
+
+<!-- DAGENTELLER -->
+<section class="card">
+  <h2>Aantal dagen totdat we elkaar weer zien</h2>
   <p id="timer"></p>
+  <p style="font-size:0.95em; color:#034; font-style:italic;">
+    Geniet van jullie vakantie ❤️
+  </p>
 </section>
 
 <!-- POPUPS -->
@@ -177,39 +302,38 @@ input{
   <div class="popup" id="popupText"></div>
 </div>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-/* FADE IN */
+/* SCROLL FADE-IN */
 const sections=document.querySelectorAll("section");
-function reveal(){
-  sections.forEach(s=>{
-    if(s.getBoundingClientRect().top<window.innerHeight-50)
-      s.classList.add("visible");
-  });
-}
-window.addEventListener("scroll",reveal);
-window.addEventListener("load",reveal);
+function reveal(){sections.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight-50)s.classList.add("visible");});}
+window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
 
 /* COUNTDOWN */
 const target=new Date("2026-03-01");
-setInterval(()=>{
-  document.getElementById("timer").innerText=
-  Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";
-},1000);
+setInterval(()=>{document.getElementById("timer").innerText=Math.floor((target-new Date())/1000/60/60/24)+" dagen ❤️";},1000);
 
 /* POPUP */
-function openPopup(t){
-  popupText.innerText=t;
-  popupBg.style.display="flex";
+function openPopup(t){popupText.innerText=t;popupBg.style.display="flex";}
+function closePopup(){popupBg.style.display="none";}
+
+/* GEHEIM + E-GIFTCARD */
+function checkGift(){
+  const input=document.getElementById('giftInput').value;
+  if(input==="23/01/2026"){
+    document.getElementById('giftPopup').style.display="flex";
+  } else { alert("Bijna… 💭"); }
 }
-function closePopup(){
-  popupBg.style.display="none";
-}
+function closeGift(){document.getElementById('giftPopup').style.display="none";}
 
 /* CAROUSEL */
 function Carousel(id){
   const c=document.getElementById(id);
   const imgs=c.querySelectorAll("img");
   const dots=c.parentElement.querySelector(".carousel-dots");
+  const cap=c.querySelector(".carousel-caption");
+  const left=c.querySelector(".left");
+  const right=c.querySelector(".right");
   let i=0;
   imgs.forEach((_,n)=>{
     const d=document.createElement("span");
@@ -220,14 +344,45 @@ function Carousel(id){
   function show(n){
     imgs.forEach(im=>im.style.display='none');
     imgs[n].style.display='block';
+    cap.innerText=imgs[n].dataset.caption||"";
     ds.forEach(d=>d.classList.remove("active"));
     ds[n].classList.add("active");
   }
   show(i);
-  c.querySelector(".left").onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
-  c.querySelector(".right").onclick=()=>{i=(i+1)%imgs.length;show(i);}
+  left.onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
+  right.onclick=()=>{i=(i+1)%imgs.length;show(i);}
 }
 window.onload=()=>Carousel("carousel");
+
+/* REISKAART */
+const schedule = [
+  {city: "Atlanta", date:"2026-02-10T10:00:00+01:00", coords:[33.7490, -84.3880]},
+ /* {city: "Parijs", date:"2026-02-12T12:00:00+01:00", coords:[48.8566,2.3522]},
+  {city: "Rome", date:"2026-02-15T14:00:00+01:00", coords:[41.9028,12.4964]} */
+];
+const myCoords = [52.0907,5.1214]; // Voorburg
+const now = new Date();
+let currentLocation = schedule[0].coords;
+for(let i=0;i<schedule.length;i++){
+  if(now >= new Date(schedule[i].date)){
+    currentLocation = schedule[i].coords;
+  }
+}
+
+const map = L.map('travelMap').setView(currentLocation,4);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+
+const routeCoords = schedule.map(s => s.coords);
+L.polyline(routeCoords,{color:'red', weight:4}).addTo(map);
+
+L.circleMarker(currentLocation,{radius:10,color:'blue',fillColor:'blue',fillOpacity:0.7}).addTo(map)
+  .bindTooltip("Jij bent hier 💙",{permanent:true,direction:'top',className:'leaflet-tooltip'});
+
+L.circleMarker(myCoords,{radius:10,color:'pink',fillColor:'pink',fillOpacity:0.7}).addTo(map)
+  .bindTooltip("Ik ben hier 💗",{permanent:true,direction:'top',className:'leaflet-tooltip'});
+
+const distance = map.distance(L.latLng(currentLocation), L.latLng(myCoords))/1000;
+document.getElementById('distanceText').innerText = `Afstand tot mij: ${distance.toFixed(1)} km ❤️`;
 </script>
 
 </body>
