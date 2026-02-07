@@ -422,7 +422,7 @@ for(let i=0;i<schedule.length;i++){
   }
 }
 
-const map = L.map('travelMap').setView(currentLocation,4);
+const map = L.map('travelMap').setView(currentLocation,2);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
 
 const routeCoords = schedule.map(s => s.coords);
