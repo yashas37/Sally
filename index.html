@@ -428,10 +428,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&
 const routeCoords = schedule.map(s => s.coords);
 L.polyline(routeCoords,{color:'red', weight:4}).addTo(map);
 
-L.circleMarker(currentLocation,{radius:10,color:'blue',fillColor:'blue',fillOpacity:0.7}).addTo(map)
+L.circleMarker(currentLocation,{radius:7,color:'blue',fillColor:'blue',fillOpacity:0.7}).addTo(map)
   .bindTooltip("Jij bent hier 💙",{permanent:true,direction:'top',className:'leaflet-tooltip'});
 
-L.circleMarker(myCoords,{radius:10,color:'pink',fillColor:'pink',fillOpacity:0.7}).addTo(map)
+L.circleMarker(myCoords,{radius:7,color:'green',fillColor:'green',fillOpacity:0.7}).addTo(map)
   .bindTooltip("Ik ben hier 💚 ",{permanent:true,direction:'top',className:'leaflet-tooltip'});
 
 const distance = map.distance(L.latLng(currentLocation), L.latLng(myCoords))/1000;
