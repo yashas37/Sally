@@ -422,7 +422,7 @@ for(let i=0;i<schedule.length;i++){
   }
 }
 
-const map = L.map('travelMap').setView(currentLocation,2);
+const map = L.map('travelMap');
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
 
 const routeCoords = schedule.map(s => s.coords);
@@ -433,6 +433,12 @@ L.circleMarker(currentLocation,{radius:7,color:'blue',fillColor:'blue',fillOpaci
 
 L.circleMarker(myCoords,{radius:7,color:'green',fillColor:'green',fillOpacity:0.7}).addTo(map)
   .bindTooltip("Ik ben hier 💚 ",{permanent:true,direction:'top',className:'leaflet-tooltip'});
+
+ map.fitBounds([...routeCoords, myCoords], {
+  padding: [30, 30]
+});
+
+
 
 const distance = map.distance(L.latLng(currentLocation), L.latLng(myCoords))/1000;
 document.getElementById('distanceText').innerText = `Fysieke afstand tot elkaar: ${distance.toFixed(1)} km ❤️`;
