@@ -286,12 +286,8 @@ input{
       Hierbij een Starbucks cadeaukaart die je kunt gebruiken in New York, geniet ervan! 
       Helaas niet te besteden in Argentinië of Brazilië.
     </p>
-    <img 
-      src="./IMG_3937.jpg"        <!-- voeg ./ toe voor relative path -->
-      alt="Starbucks cadeaukaart" <!-- altijd alt tekst voor toegankelijkheid -->
-      style="width:100%; max-width:400px; border-radius:15px; display:block; margin-top:10px;"
-      onerror="this.src='placeholder.jpg';" <!-- fallback als afbeelding niet gevonden wordt -->
-    >
+  <img src="./IMG_3937.jpg" alt="Starbucks cadeaukaart" class="gift-img" onerror="this.src='placeholder.jpg';">
+
     <button style="margin-top:15px;" onclick="closeGift()">Sluiten</button>
   </div>
 </div>
